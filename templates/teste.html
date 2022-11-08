@@ -7,9 +7,13 @@
     <title>Document</title>
 </head>
 <body>
-    {% for i in produtos %}
-        <h1 class="text-dark">Produto: {{ i[1] }}</h1>
-        <h1>Categoria {{ i[2] }}</h1>
-    {% endfor %}
+    {% if produtos != None %}
+        {% for i in produtos %}
+            <h1 class="text-dark">Produto: {{ i[1] }}</h1>
+            <h1>Categoria {{ i[2] }}</h1>
+        {% endfor %}
+    {% else %}
+        <h1>Sem estoque</h1>
+    {% endif %}
 </body>
 </html>

@@ -7,5 +7,11 @@ class Produtos():
 
     def __init__(self):
         """Construtor."""
-        self.produtos = ProdutosModel()
+        self.produtos_model = ProdutosModel()
+
+    def fabrica_produto(self):
+        """."""
+        produtos = self.produtos_model.buscar_produtos()
+        return produtos
+
 

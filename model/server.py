@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 import psycopg2
-
+from psycopg2.extras import DictCursor
+import json
 
 class Conexao(object):
     _db = None
 
     def __init__(self, mhost, db, usr, pwd):
         self._db = psycopg2.connect(
-            host=mhost, database=db, user=usr, password=pwd)
+            host=mhost, database=db, user=usr, password=pwd
+            )
 
     def manipular(self, sql):
         """Manipula os dados no db."""
@@ -22,14 +24,15 @@ class Conexao(object):
 
     def consultar(self, sql):
         """Faz a consulta no db."""
-        rs = None
+        dados = []
         try:
-            cur = self._db.cursor()
-            cur.execute(sql)
-            rs = cur.fetchall()
+            cur = self._db.cursor(
+               cursor_factory=DictCursor)
+            cur.execute(sql)  
+            dados = cur.fetchall() 
         except Exception:
             return None
-        return rs
+        return dados
 
     def proximaPK(self, tabela, chave):
         """Fecha a conexao com o db."""

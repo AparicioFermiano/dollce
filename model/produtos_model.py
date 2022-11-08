@@ -6,7 +6,7 @@ class ProdutosModel():
     """Model de produtos."""
     def __init__(self):
         """Construtor."""
-        self.con = Conexao('localhost', 'dollce', 'postgres', 'admin')
+        self.con = Conexao('localhost', 'dollce', 'aparicio', '@Aparicio129')
 
     def buscar_produtos(self, id_produto=None):
         """Busca os produtos."""
@@ -15,6 +15,7 @@ class ProdutosModel():
         else:
             sql = "select * from produtos"
         produto = []
+        produto = self.con.consultar(sql)
         try:
             produto = self.con.consultar(sql)
         except Exception as err:

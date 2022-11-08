@@ -1,21 +1,16 @@
 from flask import Flask, render_template
-from model.produtos_model import ProdutosModel
+from portal.produtos import Produtos
 
 app = Flask(__name__)
 
-produto = ProdutosModel()
+produto = Produtos()
 
 
 @app.route("/")
 def index():
-    return render_template('template.html')
-
-
-@app.route("/teste")
-def teste():
-    produtos = produto.buscar_produtos()
-    return render_template('teste.html', produtos=produtos)
-
+    produtos = produto.fabrica_produto()
+    return render_template(
+        'template.html', produtos=produtos)
 
 if __name__ == "__main__":
     app.run(debug=True)
