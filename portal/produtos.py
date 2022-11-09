@@ -9,9 +9,8 @@ class Produtos():
         """Construtor."""
         self.produtos_model = ProdutosModel()
 
-    def fabrica_produto(self):
-        """."""
-        produtos = self.produtos_model.buscar_produtos()
+    def buscar_produto(self, id_produto=None):
+        """Busca os produtos """
+        produtos = self.produtos_model.buscar_produtos(
+            id_produto=id_produto)
         return produtos
-
-
