@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -19,70 +18,74 @@
     
 </head>
 <body>
+    <div class="general-container">
     {% block navbar %}
-        <nav class="navbar navbar-expand-lg bg-site navbar-position">
-            <div class="container">
-                <!-- Logo -->
-                <a class="navbar-brand" href="#">
-                    <img class="logo" src="{{ url_for('static', filename='image/logo-light.svg') }}" alt="Logo">
-                </a>
-                <!-- Collapse bar -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_target">
-                    <i class="bi bi-list text-light"></i>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbar_target">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item px-2">
-                            <b><a class="nav-link" href="#">Início</a></b>
-                        </li>
-                        <li class="nav-item px-2">
-                            <b><a class="nav-link" href="#">Sobre</a></b>
-                        </li>
-                        <li class="nav-item px-2">
-                            <b><a class="nav-link">Coleções</a></b>
-                        </li>
-                        <li class="nav-item px-2">
-                            <b><a class="nav-link">Contato</a></b>
-                        </li>
-                        <!-- Icons -->
-                        <div class="d-flex my-auto">
+        <div class="top-container">
+            <nav class="navbar navbar-expand-lg bg-dark">
+                <div class="container">
+                    <!-- Logo -->
+                    <a class="navbar-brand" href="#">
+                        <img class="logo" src="{{ url_for('static', filename='image/logo-light.svg') }}" alt="Logo">
+                    </a>
+                    <!-- Collapse bar -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_target">
+                        <i class="bi bi-list text-light"></i>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbar_target">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item px-2">
-                                <a href=""><i class="bi bi-whatsapp text-light"></i></a>
+                                <b><a class="nav-link" href="#">Início</a></b>
                             </li>
                             <li class="nav-item px-2">
-                                <a href=""><i class="bi bi-instagram text-light"></i></a>
+                                <b><a class="nav-link" href="#">Sobre</a></b>
                             </li>
                             <li class="nav-item px-2">
-                                <a href=""><i class="bi bi-facebook text-light"></i></a>
+                                <b><a class="nav-link">Coleções</a></b>
                             </li>
-                        </div>
-                    </ul>
+                            <li class="nav-item px-2">
+                                <b><a class="nav-link">Contato</a></b>
+                            </li>
+                            <!-- Icons -->
+                            <div class="d-flex my-auto">
+                                <li class="nav-item px-2">
+                                    <a href=""><i class="bi bi-whatsapp text-light"></i></a>
+                                </li>
+                                <li class="nav-item px-2">
+                                    <a href=""><i class="bi bi-instagram text-light"></i></a>
+                                </li>
+                                <li class="nav-item px-2">
+                                    <a href=""><i class="bi bi-facebook text-light"></i></a>
+                                </li>
+                            </div>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
-    {% endblock %}
+            </nav>
+        {% endblock %}
 
-    <!-- CONTEUDO -->
-    {% block conteudo %}{% endblock %}
+        <!-- CONTEUDO -->
+        {% block conteudo %}{% endblock %}
+    </div>
 
     {% block footer %}
-        <div class="bg-dark">
-            <footer class="container d-flex flex-wrap justify-content-between align-items-center py-3">
-                <p class="col-md-4 mb-0 text-muted">&copy; Dollce Story</p>
+        <div id="rodape">
+            <footer class="align-items-center p-3 bg-dark">
+                <div class="d-flex flex-wrap justify-content-between">
+                    <p class="col-md-4 my-auto text-muted">&copy; Dollce Story</p>
 
-                <a class="navbar-brand" href="#">
-                    <img class="logo" src="{{ url_for('static', filename='image/logo-light.svg') }}" alt="Logo">
-                </a>
-            
-                <ul class="nav col-md-4 justify-content-end">
-                    <li class="nav-item px-2"><a href=""><i class="bi bi-whatsapp text-light"></i></a></li>
-                    <li class="nav-item px-2"><a href=""><i class="bi bi-instagram text-light"></i></a></li>
-                    <li class="nav-item px-2"><a href=""><i class="bi bi-facebook text-light"></i></a></li>
-                </ul>
+                    <a class="navbar-brand" href="#">
+                        <img class="logo" src="{{ url_for('static', filename='image/logo-light.svg') }}" alt="Logo">
+                    </a>
+                    
+                    <ul class="nav col-md-4 my-auto justify-content-end">
+                        <li class="nav-item px-2"><a href=""><i class="bi bi-whatsapp text-light"></i></a></li>
+                        <li class="nav-item px-2"><a href=""><i class="bi bi-instagram text-light"></i></a></li>
+                        <li class="nav-item px-2"><a href=""><i class="bi bi-facebook text-light"></i></a></li>
+                    </ul>
+                </div>
             </footer>
         </div>
     {% endblock %}
-
     <script type="text/javascript" src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='jquery/jquery-3.6.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/index.min.js') }}"></script>

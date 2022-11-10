@@ -7,12 +7,14 @@
     --bg-primary: #05050579;
 }
 
-body {
-    font-family: 'Poppins', sans-serif;
+html, * {
+  margin: 0;
+  padding: 0;
 }
 
-.bg-site {
-    background-color: var(--bg-primary);
+body {
+    font-family: 'Poppins', sans-serif;
+    flex-direction: column;
 }
 
 .logo {
@@ -45,8 +47,7 @@ body {
 
 .link:hover {
     list-style: none;
-    color: var(--color-primary-light);
-    
+    color: var(--color-primary-light);  
 }
 
 .no-border {
@@ -56,6 +57,16 @@ body {
 .title {
     font-weight: 700;
     font-size: 2rem;
+}
+
+.general-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-container {
+  flex: 1;
 }
 
 

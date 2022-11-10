@@ -12,7 +12,7 @@ def index_html():
     return render_template(
         'index.html', produtos=produtos)
 
-@app.route("/produto/<int:id_produto>")
+@app.route("/<int:id_produto>")
 def produto_html(id_produto):
     msg = ""
     if not id_produto:
@@ -20,7 +20,7 @@ def produto_html(id_produto):
     dados = produto.buscar_produto(
         id_produto=id_produto)
     return render_template(
-        'produto.html', dados=dados, msg=msg)
+        'produto_detalhes.html', dados=dados, msg=msg)
 
 if __name__ == "__main__":
     app.run(debug=True)

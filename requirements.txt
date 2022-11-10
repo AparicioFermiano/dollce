@@ -1,1 +1,2 @@
-requeriment
+psycopg2-2.9.5
+flask-2.2.2

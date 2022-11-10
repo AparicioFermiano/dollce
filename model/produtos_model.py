@@ -10,9 +10,11 @@ class ProdutosModel():
 
     def buscar_produtos(self, id_produto=None):
         """Busca os produtos."""
-        sql = "select * from vendas v" +
-                "inner join produtos p on v.id_produto = p.id_produto" +
-                "inner join produto_detalhes pd on pd.id_detalhe = p.id_detalhe"
+        sql = """
+                select * from vendas v
+                inner join produtos p on v.id_produto = p.id_produto
+                inner join produto_detalhes pd on pd.id_detalhe = p.id_detalhe
+            """
         if id_produto:
             sql = sql + "where id_produto = %s " % id_produto
         produto = []
@@ -22,5 +24,4 @@ class ProdutosModel():
         except Exception as err:
             msg = "Problemas no banco! %s ." % err
             raise Exception(msg)
-        raise Exception(produto)
         return produto
