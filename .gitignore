@@ -7,7 +7,7 @@ __pycache__/
 *.so
 
 # Others
-Script/
+Scripts/
 
 # Distribution / packaging
 .Python
