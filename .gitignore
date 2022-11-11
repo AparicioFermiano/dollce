@@ -8,6 +8,8 @@ __pycache__/
 
 # Others
 Scripts/
+bin/
+pyvenv.cfg
 
 # Distribution / packaging
 .Python
