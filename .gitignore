@@ -7,9 +7,9 @@ __pycache__/
 *.so
 
 # Others
-Scripts/
-bin/
-pyvenv.cfg
+# Scripts/
+# bin/
+# pyvenv.cfg
 
 # Distribution / packaging
 .Python
