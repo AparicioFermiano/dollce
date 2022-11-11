@@ -30,8 +30,8 @@ class Conexao(object):
                cursor_factory=DictCursor)
             cur.execute(sql)  
             dados = cur.fetchall() 
-        except Exception:
-            return None
+        except Exception as err:
+            return err
         return dados
 
     def proximaPK(self, tabela, chave):

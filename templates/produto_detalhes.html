@@ -3,32 +3,64 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/portal.min.css') }}">
 {% endblock %}
 {% block conteudo %}
-    <div class="container mt-5">
-        <div class="row border">
-            <div class="col-lg-2 col-sm-6">
-                <div class="container-box">
-                    <div class="box pb-3">
-                        <img src="{{ url_for('static', filename='image/1.jpg')}}" class="img" alt="">
-                    </div>
-                    <div class="box pb-3">
-                        <img src="{{ url_for('static', filename='image/1.jpg')}}" class="img" alt="">
-                    </div>
-                    <div class="box pb-3">
-                        <img src="{{ url_for('static', filename='image/1.jpg')}}" class="img" alt="">
-                    </div>
-                    <div class="box pb-3">
-                        <img src="{{ url_for('static', filename='image/1.jpg')}}" class="img" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-sm-6">
+    <div class="container mb-5">
+        <div class="my-2 border border-danger py-2">
+            <p>migalha de pão</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-5 col-md-12 col-sm-12">
+                <!-- Fotos Destaque -->
                 <div class="box-produto">
-                    <img src="{{ url_for('static', filename='image/1.jpg') }}" class="img" alt=""> 
+                    <input type="image" class="img" src="{{ url_for('static', filename=imagem_destaque.url_imagem)}}"
+                    id="image_destaque" alt="{{ imagem_destaque.descricao }}"> 
                 </div>
-                
+                <!-- Fotos Opcoes -->
+                <div class="d-flex mt-3 justify-content-between">
+                    {% for i in imagens %}
+                        <div class="p-2">
+                            <div class="box">
+                                <input type="image" class="img" src="{{ url_for('static', filename=i.url_imagem)}}" onclick="javascript: trocar_imagem(this)" alt="{{ i.descricao }}">
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-            <div class="col-lg-4 col-sm-6">
-                
+            <div class="col-lg-7 col-md-12 col-sm-12">
+                <div class="pb-2">
+                    <h3>{{ dados['produto'] }}</h3>
+                </div>
+                <div class="d-flex my-2">
+                    <h6 class="muted my-auto">{{ "R$ %.2f"|format(dados['preco']) }}</h6>
+                    <h4 class="px-2 my-auto">{{ "R$ %.2f"|format(dados['preco_promocao']) }}</h4>  
+                </div>
+                <b><p>{{ dados['parcelamento'] }}x de {{"R$ %.2f"|format(dados['preco_parcelado']) }}</p></b>
+                <div>
+                    <p>{{ dados['descricao'] }}</p>
+                </div>
+                <div class="my-2">
+                    <b>Tamanhos disponíveis:</b>
+                    <div class="d-flex mt-1">
+                        <button type="button" class="btn-tamanho" readonly>P</button>
+                        <button type="button" class="btn-tamanho" readonly>M</button>
+                    </div>
+                </div>
+                <button class="btn btn-compra btn-shopee d-flex mx-auto">
+                    <div class="icon px-1">
+                        <img src="{{ url_for('static', filename='image/shopee-icon.png')}}" class="img">
+                    </div>
+                    <div class="px-1">Comprar na Shopee</div>
+                </button>
+                <button class="btn btn-compra btn-mercadolivre d-flex mx-auto">
+                    <div class="icon px-1">
+                        <img src="{{ url_for('static', filename='image/mercado-livre.png')}}" class="img">
+                    </div>
+                    <div class="px-1">Comprar no Mercado Livre</div>
+                </button>
+                <hr>
+                <div>
+                    <h5>Especificações:</h5>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae praesentium consectetur voluptatem, fugiat dicta quae adipisci, ut atque soluta odit deleniti ratione voluptate, tempora voluptas molestias quos sunt error dolores.</p>
+                </div>
             </div>
         </div>
     </div>

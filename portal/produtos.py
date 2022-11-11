@@ -14,3 +14,13 @@ class Produtos():
         produtos = self.produtos_model.buscar_produtos(
             id_produto=id_produto)
         return produtos
+
+    def buscar_imagens(self, id_produto=None):
+        """."""
+        imagens = self.produtos_model.buscar_imagens(
+            id_produto=id_produto)
+        imagem_destaque = None
+        for i in imagens:
+            if i['destaque']:
+                imagem_destaque = i
+        return imagens, imagem_destaque

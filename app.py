@@ -18,9 +18,13 @@ def produto_html(id_produto):
     if not id_produto:
         msg = "Nenhum produto encontrado!"
     dados = produto.buscar_produto(
+        id_produto=id_produto)[0]
+    imagens, imagem_destaque = produto.buscar_imagens(
         id_produto=id_produto)
     return render_template(
-        'produto_detalhes.html', dados=dados, msg=msg)
+        'produto_detalhes.html', dados=dados, 
+        msg=msg, imagens=imagens, 
+        imagem_destaque=imagem_destaque)
 
 if __name__ == "__main__":
     app.run(debug=True)

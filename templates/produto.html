@@ -1,30 +1,14 @@
-<div class="row justify-content-around">
-	{% if produtos != None %}
-	    {% for p in produtos %}
-	        <div class="card card-venda col-lg-3 col-md-4 col-sm-6">
-	            <a class="nav-link text-black" href="{{ '/%s'% p.id_produto }}">
-	                <img class="card-img-top img" src="{{ url_for('static', filename=p.img_produto) }}" alt="Card image cap">
-	                <div class="card-body text-center">
-	                    <p class="card-title">{{ p.produto }}</p>
-	                    <div class="card-text">
-	                        <s class="text-muted">{{ "R$ %.2f"|format(p.preco) }}</s>
-	                        <b><h4 class="text-danger">{{ "R$ %.2f"|format(p.preco_promocao) }}</h4></b>
-	                        <small class="text-muted">{{ p.parcelamento }}x de {{ "R$ %.2f"|format(p.preco_parcelado) }}</small>
-	                    </div>
-	                </div>
-	            </a>
-	        </div>
-	    {% endfor %}
-	    <nav>
-	        <ul class="pagination justify-content-center">
-	            <li class="page-item"><a class="page-link text-dark" href="#">Previous</a></li>
-	            <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
-	            <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
-	            <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
-	            <li class="page-item"><a class="page-link text-dark" href="#">Next</a></li>
-	        </ul>
-	    </nav>
-	{% else %}
-	    <p>Nenhum produto encontrado!</p>
-	{% endif %}
+<div class="card card-venda col-lg-3 col-md-4 col-sm-6">
+    <a class="nav-link text-black" href="{{ '/%s'% p.id_produto }}">
+        <img class="card-img-top img" src="{{ url_for('static', filename=p.img_produto) }}" alt="Card image cap">
+        <div class="card-body text-center">
+            <p class="card-title">{{ p.produto }}</p>
+            <div class="card-text">
+                <s class="text-muted">{{ "R$ %.2f"|format(p.preco) }}</s>
+                <b><h4 class="text-danger">{{ "R$ %.2f"|format(p.preco_promocao) }}</h4></b>
+                <small class="text-muted">{{ p.parcelamento }}x de {{ "R$ %.2f"|format(p.preco_parcelado) }}</small>
+            </div>
+        </div>
+    </a>
 </div>
+	    

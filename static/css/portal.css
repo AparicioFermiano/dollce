@@ -1,8 +1,11 @@
 .box {
-	width: 100px;
-	height: 150px;
-	margin: 0 auto;
+	width:  100%;
+	height: 17vh;
 	overflow: hidden;
+}
+
+.box:hover, .box:focus {
+	opacity: 0.8;
 }
 
 .box > img {
@@ -11,6 +14,54 @@
 }
 
 .box-produto {
-	width:  350px;
-	height:  350px;
+	width: 100%;
+    height: 550px;
+    overflow: hidden;
 }
+
+.icon {
+	width: 50px;
+}
+
+.btn-tamanho {
+   	width: 40px;
+    height: 40px;
+    border: 2px solid var(--color-dark);
+    margin-right: 0.25rem;
+    border-radius: 0.5rem;
+}
+
+.btn-compra {
+	width: 100%;
+	margin-top: 0.5rem;
+	padding: 1rem 0;
+	font-weight: 600;
+	justify-content: center;
+    font-size: 1.5rem;
+	align-items: center;
+}
+
+.btn-shopee {
+	background-color: #EE4D2D;
+	border: 2px solid #EE4D2D;
+	color: var(--color-light);
+}
+
+.btn-shopee:hover, .btn-shopee:focus {
+	background-color: white;
+	border: 2px solid #EE4D2D;
+	color: var(--color-dark);
+}
+
+.btn-mercadolivre {
+	background-color: #ffe600;
+	border: 2px solid #ffe600;
+	color: var(--color-dark);
+}
+
+.btn-mercadolivre:hover, .btn-mercadolivre:focus {
+	background-color: white;
+	border: 2px solid #ffe600;
+	color: var(--color-dark);
+}
+
