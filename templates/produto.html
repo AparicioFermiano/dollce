@@ -1,6 +1,9 @@
 <div class="card card-venda col-lg-3 col-md-4 col-sm-6">
     <a class="nav-link text-black" href="{{ '/%s'% p.id_produto }}">
-        <img class="card-img-top img" src="{{ url_for('static', filename=p.img_produto) }}" alt="Card image cap">
+        <input type="image" class="card-img-top img" src="{{ url_for('static', filename=p.imagem_principal) }}"
+            id="{{ p.id_produto }}" alt="{{ p.descricao_principal }}">
+        <input type="image" class="card-img-top img img-produto" src="{{ url_for('static', filename=p.imagem_secundaria) }}"
+            id="{{'sec%s' % p.id_produto }}" alt="{{ p.descricao_secundaria }}">
         <div class="card-body text-center">
             <p class="card-title">{{ p.produto }}</p>
             <div class="card-text">

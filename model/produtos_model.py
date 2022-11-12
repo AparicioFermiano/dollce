@@ -20,9 +20,21 @@ class ProdutosModel():
     def buscar_produtos(self, id_produto=None):
         """Busca os produtos."""
         sql = """
-                SELECT * FROM vendas v
-                INNER JOIN produtos p ON v.id_produto = p.id_produto
-                INNER JOIN produto_detalhes pd ON pd.id_detalhe = p.id_detalhe
+                SELECT 
+                    v.preco,
+                    v.preco_promocao,
+                    v.parcelamento,
+                    v.preco_parcelado,
+                    p.id_produto,
+                    p.produto,
+                    pi.url_imagem as imagem_principal,
+                    pi.descricao as descricao_principal,
+                    pi2.url_imagem as imagem_secundaria,
+                    pi2.descricao as descricao_secundaria
+                FROM vendas v
+                    INNER JOIN produtos p ON v.id_produto = p.id_produto
+                    INNER JOIN produto_imagens pi ON pi.id_produto = p.id_produto and pi.destaque = True
+                    INNER JOIN produto_imagens pi2 ON pi2.id_produto = p.id_produto and pi2.secundaria = True
             """
         if id_produto:
             sql = sql + "where p.id_produto = %s " % id_produto

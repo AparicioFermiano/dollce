@@ -3,10 +3,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/portal.min.css') }}">
 {% endblock %}
 {% block conteudo %}
-    <div class="container mb-5">
-        <div class="my-2 border border-danger py-2">
-            <p>migalha de pão</p>
-        </div>
+    <div class="container mb-5 mt-3">
+        {% include 'breadcrumb.html' %}
         <div class="row">
             <div class="col-lg-5 col-md-12 col-sm-12">
                 <!-- Fotos Destaque -->
@@ -30,8 +28,8 @@
                     <h3>{{ dados['produto'] }}</h3>
                 </div>
                 <div class="d-flex my-2">
-                    <h6 class="muted my-auto">{{ "R$ %.2f"|format(dados['preco']) }}</h6>
-                    <h4 class="px-2 my-auto">{{ "R$ %.2f"|format(dados['preco_promocao']) }}</h4>  
+                    <s><h6 class="muted my-auto">{{ "R$ %.2f"|format(dados['preco']) }}</h6></s>
+                    <h4 class="px-2 text-dark bold my-auto">{{ "R$ %.2f"|format(dados['preco_promocao']) }}</h4>  
                 </div>
                 <b><p>{{ dados['parcelamento'] }}x de {{"R$ %.2f"|format(dados['preco_parcelado']) }}</p></b>
                 <div>
@@ -56,11 +54,35 @@
                     </div>
                     <div class="px-1">Comprar no Mercado Livre</div>
                 </button>
+                <button class="btn btn-compra btn-wpp d-flex mx-auto">
+                    <div class="icon px-1">
+                        <img src="{{ url_for('static', filename='image/wpp.png')}}" class="img">
+                    </div>
+                    <div class="px-1">Comprar pelo WhatsApp</div>
+                </button>
                 <hr>
                 <div>
-                    <h5>Especificações:</h5>
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae praesentium consectetur voluptatem, fugiat dicta quae adipisci, ut atque soluta odit deleniti ratione voluptate, tempora voluptas molestias quos sunt error dolores.</p>
+                    <h5>Resumo:</h5>
+                    <p>Blusa Cropped Feminina Canelada Alças Largas Marisa<br><br>
+                    Blusa feminina, modelo cropped, confeccionada em malha canelada. Possui decote redondo, alças largas, acabamento e costura no tom.</p>
                 </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row mt-3">
+            <div class="col-lg-7 muted border-right">
+               <h5>Especificações:</h5>
+               <span class="semibold">Tamanhos: </span>PP ao GG <br>
+               <span class="semibold">Cor: </span>rosa<br>
+               <span class="semibold">Modelo: </span>Blusa Cropped Feminina Canelada<br>
+               <span class="semibold">Material: </span>canelado (malha canelada)<br>
+               <span class="semibold">Composição: </span>97% viscose, 3% elastano<br>
+               <span class="semibold">Detalhes adicionais: </span>cropped, canelado, alças largas, verão<br>
+               <span class="semibold">Categoria: </span>Moda Feminina - Roupa Feminina - Blusas -  Blusas Cropped - Cropped Regata<br>
+               <span class="semibold">Código: </span>10048756679<br>
+            </div>
+            <div class="col-lg-5">
+               <h5>Recomendados:</h5>
             </div>
         </div>
     </div>
