@@ -55,8 +55,6 @@ class ProdutosModel():
                 INNER JOIN produto_imagens pi ON pi.id_produto = p.id_produto and pi.destaque = True
                 INNER JOIN produto_imagens pi2 ON pi2.id_produto = p.id_produto and pi2.secundaria = True
         """
-        if id_produto:
-            sql = sql + "where p.id_produto = %s " % id_produto
         produto = self.realizar_conexao(sql)
         return produto
 
@@ -97,3 +95,25 @@ class ProdutosModel():
         """ % id_produto
         imagens = self.realizar_conexao(sql)
         return imagens
+
+    def buscar_cores(self):
+        """."""
+        sql = "SELECT * FROM cor"
+        cores = self.realizar_conexao(sql)
+        return cores
+
+    def buscar_categorias(self, id_vestuario=None):
+        """."""
+        sql = """
+            SELECT * FROM categoria
+        """
+        if id_vestuario:
+            sql = sql + "where id_vestuario=%s" % id_vestuario
+        categoria = self.realizar_conexao(sql)
+        return categoria
+
+    def buscar_vestuario(self):
+        """."""
+        sql = "SELECT * FROM vestuario"
+        vestuario = self.realizar_conexao(sql)
+        return vestuario

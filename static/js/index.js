@@ -3,4 +3,56 @@ function trocar_imagem(id) {
 	imagem_destaque.src = id.src
 }
 
+function selecionar_todos(id, classe) {
+    if(id.checked) {
+        $('.' + classe).each(function() {
+            this.checked = true;               
+        });
+    }else{
+        $('.' + classe).each(function() {
+            this.checked = false;                       
+        });         
+    };
+}
+
+function buscar_categoria(id_vestuario) {
+	$('#select_categoria').empty();
+	$.ajax({
+		url: "/gestor/produto",
+		type: "GET",
+		contentType: 'application/json',
+		data: {
+			'id_vestuario': id_vestuario
+		},
+		success: function(response){
+			$('#categoria').removeClass('esconder');
+			$('#select_categoria').append('<option selected disabled>Selecionar</option>');
+			response.forEach(function(e){
+                $('#select_categoria').append('<option value='+ e.id_categoria +'>' + e.tipo + '</option>');
+	        });
+		},
+       	error: function() {
+   			alert('Problema ao buscar as categorias');
+       }
+   	});
+}
+
+function ajax_alterar_produto() {
+	console.log(document.forms[0])
+
+  	/*$.ajax({
+       type: "POST",
+       url: "/gestor/propostas/definir_id_lingua",
+       data: form_param,
+       dataType: "json",
+       success: function(){
+           console.log('ok, alterado.');
+           window.location=window.location;
+       },
+       error: function() {
+       		console.log('ok, error.');
+       }
+   	});*/
+}
+
 
