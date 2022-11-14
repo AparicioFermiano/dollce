@@ -29,7 +29,7 @@
         <span class="title d-block">CATÁLOGO</span>
         <small class="muted">Qual peça se encaixa melhor em você?</small>
     </div>
-    {% include 'catalogo.html' %}
+    {% include 'portal/catalogo.html' %}
 
     <!-- Produtos -->
     <div id="produtos">
@@ -41,7 +41,7 @@
             <div class="row justify-content-around">
                 {% if produtos != None %}
                     {% for p in produtos %}
-                        {% include 'produto.html' %}
+                        {% include 'portal/produto.html' %}
                     {% endfor %}
                     <nav>
                         <ul class="pagination justify-content-center">
@@ -65,7 +65,7 @@
             <span class="title d-block pt-4">COLEÇÃO</span>
             <small class="muted">Veja nossas coleções.</small>
         </div>
-        {% include 'colecao.html' %}
+        {% include 'portal/colecao.html' %}
     </div>
 
 {% endblock %}

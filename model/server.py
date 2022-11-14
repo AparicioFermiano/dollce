@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import psycopg2
-from psycopg2.extras import DictCursor
+from psycopg2.extras import RealDictCursor
 import json
 
 class Conexao(object):
@@ -10,6 +10,7 @@ class Conexao(object):
         self._db = psycopg2.connect(
             host=mhost, database=db, user=usr, password=pwd
             )
+        self._db.autocommit = True
 
     def manipular(self, sql):
         """Manipula os dados no db."""
@@ -27,12 +28,13 @@ class Conexao(object):
         dados = []
         try:
             cur = self._db.cursor(
-               cursor_factory=DictCursor)
+               cursor_factory=RealDictCursor)
             cur.execute(sql)  
             dados = cur.fetchall() 
         except Exception as err:
             return err
-        return dados
+        dados_dict = [{k:v for k, v in record.items()} for record in dados]
+        return dados_dict
 
     def proximaPK(self, tabela, chave):
         """Fecha a conexao com o db."""

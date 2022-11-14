@@ -1,0 +1,64 @@
+{% extends 'gestor/template_gestor.html' %}
+
+{% block conteudo %}
+<div class="container">
+	<form id="filtro" class="my-4">
+		<div class="row">
+			<div class="col-lg-4 col-md-6 col-sm-6">
+				<div class="form-group">
+				   <label for="buscar_produto">Buscar por Produto</label>
+				   <input type="text" class="form-control" id="buscar_produto" placeholder="Buscar produto">
+			  	</div>
+			</div>
+			<div class="col-lg-4 col-md-6 col-sm-6">
+				<div class="form-group">
+					<label for="buscar_produto">Buscar por Vestuário</label> 
+					<select class="form-control">
+						<option disabled selected="">Selecionar</option>
+						{% for i in vestuario %}
+							<option value="{{ i.id_vestuario }}">{{ i.vestuario }}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6 col-sm-6 mt-auto">
+				<button class="btn btn-primary my-auto">Buscar</button>
+				<a class="btn btn-outline-success my-auto" href="{{ url_for('static', filename='gestor/produto')}}">Cadastrar Produto</a>
+			</div>
+		</div>
+	</form>
+	<hr>
+	<table class="table table-striped">
+	  	<thead>
+	    	<tr class="text-center">
+	      		<th scope="col">ID</th>
+	      		<th scope="col">Produto</th>
+	     		<th scope="col">Descrição</th>
+	      		<th scope="col">Vestuário</th>
+	      		<th scope="col">Última atualização</th>
+	      		<th scope="col">Comandos</th>
+
+	    	</tr>
+	  	</thead>
+	  	<tbody>
+	  		{% for p in produtos %}
+		    <tr class="text-center">
+		      	<td scope="row">{{ p.id_produto }}</td>
+		      	<td>{{ p.produto }}</td>
+		      	<td>{{ p.descricao }}</td>
+		      	<td>{{ p.vestuario }}</td>
+		      	{% if p.dt_alteracao %}
+		      		<td>{{ p.dt_alteracao|date() }}</td>
+		      	{% else %}
+		      		<td>{{ p.dt_criacao|date() }}</td>
+		      	{% endif %}
+		      	<td>
+		      		<input type="button" class="btn" onclick="window.location('')"><i class="bi bi-pencil-square text-primary"></i>
+		      		<input type="button" class="btn" onclick="window.location('')"><i class="bi bi-x-circle text-danger"></i></i>
+		      	</td>
+		    </tr>
+		    {% endfor %}
+	  	</tbody>
+	</table>
+</div>
+{% endblock %}

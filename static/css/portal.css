@@ -23,12 +23,12 @@
 	width: 50px;
 }
 
-.btn-tamanho {
-   	width: 35px;
+.btn-cores {
+    width: 35px;
     height: 35px;
-    border: 1px solid var(--color-dark);
+    border-radius: 50%;
+    border: 0;
     margin-right: 0.25rem;
-    background-color: transparent;
 }
 
 .btn-compra {

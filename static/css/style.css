@@ -91,6 +91,10 @@ body {
   flex: 1;
 }
 
+.mr-1 {
+    margin-right: 0.25rem !important;
+}
+
 @media (min-width: 1200px) {
 
 }
