@@ -38,21 +38,6 @@ function buscar_categoria(id_vestuario) {
 }
 
 function ajax_alterar_produto() {
-	console.log(document.forms[0])
-
-  	/*$.ajax({
-       type: "POST",
-       url: "/gestor/propostas/definir_id_lingua",
-       data: form_param,
-       dataType: "json",
-       success: function(){
-           console.log('ok, alterado.');
-           window.location=window.location;
-       },
-       error: function() {
-       		console.log('ok, error.');
-       }
-   	});*/
+	form = document.forms[0]
+	form.submit()
 }
-
-
