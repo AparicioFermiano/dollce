@@ -37,7 +37,7 @@ def adm():
     return render_template(
         'gestor/gestor_produtos.html', produtos=produtos)
 
-@app.route("/dollce/administracao/produto")
+@app.route("/dollce/administracao/produto", methods=['GET', 'POST'])
 def alterar_produto():
     lista_cores = produto.listar_cores()
     lista_vestuario = produto.listar_vestuario()
@@ -47,19 +47,22 @@ def alterar_produto():
         lista_categoria = produto.listar_categorias(
             id_vestuario=id_vestuario)
         return lista_categoria
+
+    if request.method == 'POST':
+        produto.cadastrar_produto(form=request.form)
     
     return render_template(
         'gestor/gestor_alterar_produto.html', 
         lista_cores=lista_cores, 
         lista_vestuario=lista_vestuario)
 
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('error/404.html', error=e), 404
+# @app.errorhandler(404)
+# def page_not_found(e):
+#     return render_template('error/404.html', error=e), 404
 
-@app.errorhandler(500)
-def internal_server_error(e):
-    return render_template('error/500.html', error=e), 500
+# @app.errorhandler(500)
+# def internal_server_error(e):
+#     return render_template('error/500.html', error=e), 500
 
 @app.template_filter('date')
 def filter_datetime(data):

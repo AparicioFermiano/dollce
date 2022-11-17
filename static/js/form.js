@@ -19,7 +19,7 @@ function validar_alterar_produto() {
   		valor += validar_select('select_categoria','select-categoria', 'Selecione uma categoria')
   	}
   	if(valor == 0) {
-  		form.action = ""
+  		form.action = "/dollce/administracao/produto"
   		form.submit()
   	}
 }
@@ -42,9 +42,7 @@ function validar_select(id, classe, msg) {
 		campo_msg.addClass('msg-error');
 		campo.addClass('border-error');
 		return 1
-		
 	}
-	
 }
 
 function validar_url(id) {

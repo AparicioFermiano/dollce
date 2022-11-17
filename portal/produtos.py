@@ -70,3 +70,29 @@ class Produtos():
         """Gera a lista de categorias."""
         vestuario = self.produtos_model.buscar_vestuario()
         return vestuario
+
+    def cadastrar_produto(self, form=None):
+        """Valida os dados e cadastra o produto."""
+        produto = form.get('produto', None)
+        desc_produto = form.get('desc_produto', None)
+        cores = []
+        tamanhos = []
+        for item in form:
+            if 'cor' in item:
+                cores.append(form.get(item))
+            if 'tamanho' in item:
+                tamanhos.append(form.get(item))
+        
+        self.produtos_model.inserir_produto(
+            produto = form.get('produto', None),
+            desc_produto = form.get('desc_produto', None),
+            vestuario = form.get('vestuario', None),
+            categoria = form.get('categoria', None),
+            resumo = form.get('resumo', None),
+            url_mercado_livre = form.get('url_mercado_livre', None),
+            url_shopee = form.get('url_shopee', None),
+            modelo = form.get('modelo', None),
+            material = form.get('material', None),
+            composicao = form.get('composicao', None),
+            tamanhos = tamanhos,
+            cores = cores)
