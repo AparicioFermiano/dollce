@@ -3,32 +3,21 @@ function trocar_imagem(id) {
 	imagem_destaque.src = id.src
 }
 
-function selecionar_todos(id, classe) {
-    if(id.checked) {
-        $('.' + classe).each(function() {
-            this.checked = true;               
-        });
-    }else{
-        $('.' + classe).each(function() {
-            this.checked = false;                       
-        });         
-    };
-}
-
 function buscar_categoria(id_vestuario) {
 	$('#select_categoria').empty();
 	$.ajax({
-		url: "/gestor/produto",
+		url: "/dollce/administracao/produto",
 		type: "GET",
 		contentType: 'application/json',
 		data: {
 			'id_vestuario': id_vestuario
 		},
 		success: function(response){
+			console.log(response)
 			$('#categoria').removeClass('esconder');
 			$('#select_categoria').append('<option selected disabled>Selecionar</option>');
 			response.forEach(function(e){
-                $('#select_categoria').append('<option value='+ e.id_categoria +'>' + e.tipo + '</option>');
+                $('#select_categoria').append('<option class="select-categoria" value='+ e.id_categoria +'>' + e.tipo + '</option>');
 	        });
 		},
        	error: function() {
@@ -37,7 +26,3 @@ function buscar_categoria(id_vestuario) {
    	});
 }
 
-function ajax_alterar_produto() {
-	form = document.forms[0]
-	form.submit()
-}

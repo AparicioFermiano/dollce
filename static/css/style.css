@@ -99,6 +99,15 @@ body {
     margin-right: 0.25rem !important;
 }
 
+/* VALIDACAO */
+.msg-error {
+    color: red !important;
+}
+
+.border-error {
+    border: 1px solid red !important;
+}
+
 @media (min-width: 1200px) {
 
 }

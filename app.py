@@ -37,7 +37,7 @@ def adm():
     return render_template(
         'gestor/gestor_produtos.html', produtos=produtos)
 
-@app.route("/gestor/produto")
+@app.route("/dollce/administracao/produto")
 def alterar_produto():
     lista_cores = produto.listar_cores()
     lista_vestuario = produto.listar_vestuario()
