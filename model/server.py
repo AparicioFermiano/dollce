@@ -12,16 +12,31 @@ class Conexao(object):
             )
         self._db.autocommit = True
 
-    def manipular(self, sql):
+    def manipular(self, sql, retorno=None):
         """Manipula os dados no db."""
+        response = False
         try:
             cur = self._db.cursor()
             cur.execute(sql)
-            cur.close()
-            self._db.commit()
+            self._db.commit()  
         except Exception:
-            return False
-        return True
+            response = False
+        if retorno:
+            response = cur.fetchone()[0]
+        return response
+
+    def consultar_unit(self, sql):
+        """Faz consulta com retorno unico."""
+        dados = []
+        try:
+            cur = self._db.cursor(
+               cursor_factory=RealDictCursor)
+            cur.execute(sql)  
+            dados = cur.fetchone() 
+        except Exception as err:
+            return err
+        dados_dict = {k:v for k, v in dados.items()}
+        return dados_dict
 
     def consultar(self, sql):
         """Faz a consulta no db."""

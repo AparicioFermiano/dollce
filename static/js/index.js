@@ -13,11 +13,14 @@ function buscar_categoria(id_vestuario) {
 			'id_vestuario': id_vestuario
 		},
 		success: function(response){
-			console.log(response)
 			$('#categoria').removeClass('esconder');
 			$('#select_categoria').append('<option selected disabled>Selecionar</option>');
 			response.forEach(function(e){
-                $('#select_categoria').append('<option class="select-categoria" value='+ e.id_categoria +'>' + e.tipo + '</option>');
+                if(e.id_categoria == $('#id_categoria').val()){
+                	$('#select_categoria').append('<option class="select-categoria" selected value='+ e.id_categoria +'>' + e.tipo + '</option>');
+                } else {
+                	$('#select_categoria').append('<option class="select-categoria" value='+ e.id_categoria +'>' + e.tipo + '</option>');
+                }
 	        });
 		},
        	error: function() {

@@ -19,7 +19,7 @@ class Produtos():
         """Busca os detalhes do produto."""
         if not id_produto:
             raise Exception("É necessário o id do produto")
-        
+
         detalhes = self.produtos_model.buscar_produto_detalhes(
             id_produto=id_produto)
         
@@ -71,10 +71,8 @@ class Produtos():
         vestuario = self.produtos_model.buscar_vestuario()
         return vestuario
 
-    def cadastrar_produto(self, form=None):
-        """Valida os dados e cadastra o produto."""
-        produto = form.get('produto', None)
-        desc_produto = form.get('desc_produto', None)
+    def manipular_produto(self, form=None):
+        """Valida os dados e manipula o produto."""
         cores = []
         tamanhos = []
         for item in form:
@@ -83,7 +81,9 @@ class Produtos():
             if 'tamanho' in item:
                 tamanhos.append(form.get(item))
         
-        self.produtos_model.inserir_produto(
+        self.produtos_model.manipular_produto(
+            id_produto = form.get('id_produto', None),
+            id_detalhe = form.get('id_detalhe', None),
             produto = form.get('produto', None),
             desc_produto = form.get('desc_produto', None),
             vestuario = form.get('vestuario', None),

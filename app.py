@@ -1,4 +1,4 @@
-from flask import Flask, render_template, abort, request, jsonify #redirect # flash
+from flask import Flask, render_template, abort, request, jsonify #redirect flash
 from portal.produtos import Produtos
 from datetime import date, datetime
 from time import time
@@ -16,9 +16,8 @@ def index_html():
 
 @app.route("/<int:id_produto>")
 def produto_html(id_produto):
-    msg = ""
     if not id_produto:
-        msg = "Nenhum produto encontrado!"
+        raise Exception("Nenhum produto encontrado!")
     dados = produto.buscar_produto_detalhes(
         id_produto=id_produto)[0]
     cores, todas_cores = produto.verificar_cores_produtos(
@@ -27,7 +26,7 @@ def produto_html(id_produto):
         id_produto=id_produto)
     return render_template(
         'portal/produto_detalhes.html', dados=dados, 
-        msg=msg, imagens=imagens, 
+        imagens=imagens, 
         imagem_destaque=imagem_destaque,
         cores=cores, todas_cores=todas_cores)
 
@@ -41,18 +40,27 @@ def adm():
 def alterar_produto():
     lista_cores = produto.listar_cores()
     lista_vestuario = produto.listar_vestuario()
-    
+    id_produto = request.args.get('id_produto', None)
     id_vestuario = request.args.get('id_vestuario', None)
+    detalhes = []
+    cores = []
+    tamanhos = []
+
+    if id_produto:
+        detalhes = produto.buscar_produto_detalhes(
+            id_produto=int(id_produto))
+        # cores = produto.buscar_produto_detalhes(
+        #     id_produto=int(id_produto))
     if id_vestuario:
         lista_categoria = produto.listar_categorias(
             id_vestuario=id_vestuario)
         return lista_categoria
-
     if request.method == 'POST':
-        produto.cadastrar_produto(form=request.form)
-    
+        produto.manipular_produto(form=request.form)
+
     return render_template(
         'gestor/gestor_alterar_produto.html', 
+        detalhes=detalhes,
         lista_cores=lista_cores, 
         lista_vestuario=lista_vestuario)
 

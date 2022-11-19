@@ -4,6 +4,10 @@
 
 <div class="container my-4">
 	<form id="form_produto" method="POST">
+		{% if detalhes['id_produto'] %}
+			<input type="hidden" name="id_produto" value="{{ detalhes['id_produto'] }}">
+			<input type="hidden" name="id_detalhe" value="{{ detalhes['id_detalhe'] }}">
+		{% endif %}
 		<div class="accordion" id="form_accordion">
 		  	<div class="accordion-item">
 		    	<h3 class="accordion-header">
@@ -15,13 +19,13 @@
         					<!-- Produto -->
     		  				<div class="form-group">
     		  			    	<label for="produto">Nome</label>
-    		  			    	<input type="text" class="form-control" id="produto" name="produto" placeholder="Nome do Produto" onchange="javascript:validar_required(this.id)" onfocusout="javascript:validar_required(this.id)">
+    		  			    	<input type="text" class="form-control" id="produto" name="produto" placeholder="Nome do Produto" onchange="javascript:validar_required(this.id)" value="{{ detalhes['produto'] or '' }}" onfocusout="javascript:validar_required(this.id)">
     		  			    	<small id="msg-produto"></small>
     		  			  	</div>
 
     		  			  	<div id="validar-desc_produto" class="form-group mt-3">
     		  			    	<label for="desc_produto">Título do Produto</label>
-    		  			    	<input type="text" class="form-control" id="desc_produto" name="desc_produto" placeholder="Título do produto" onchange="javascript:validar_required(this.id)" onfocusout="javascript:validar_required(this.id)">
+    		  			    	<input type="text" class="form-control" id="desc_produto" name="desc_produto" placeholder="Título do produto" value="{{ detalhes['descricao'] or '' }}" onchange="javascript:validar_required(this.id)" onfocusout="javascript:validar_required(this.id)">
     		  			    	<small id="msg-desc_produto"></small>
     		  			  	</div>
         				  	<hr>
@@ -64,16 +68,16 @@
     						<select class="form-select" onchange="javascript: buscar_categoria(this.value)" id="select_vestuario" name="vestuario" >
     						  <option selected disabled>Selecionar</option>
     						  {% for vest in lista_vestuario %}
-    						  	<option class="select-vestuario" value="{{ vest['id_vestuario'] }}">{{ vest['vestuario'] }}</option>
+    						  	<option class="select-vestuario" {{'selected' if vest['id_vestuario']==detalhes['id_vestuario']}} value="{{ vest['id_vestuario'] }}">{{ vest['vestuario'] }}</option>
     						  {% endfor %}
     						</select>
     						<small id="msg-select_vestuario"></small>
         			  		<!-- Categoria -->
         			  		<div id="categoria" class="mt-3 esconder">
+        			  			<input type="hidden" id="id_categoria" name="id_categoria" value="{{ detalhes['id_categoria'] or '' }}">
         			  			<h5>Categoria:</h5>
         			  			<select id="select_categoria" name="categoria" class="form-select">
         			  			  	<option selected disabled>Selecionar</option>
-        			  			  	<option value="1">teste</option>
         			  			</select>
         			  			<small id="msg-select_categoria"></small>
         			  		</div>
@@ -82,34 +86,34 @@
         				<div class="col-lg-6 col-md-6 col-sm-12">
         					<div class="form-group">
         					  	<label for="resumo">Resumo</label>
-        					  	<textarea class="form-control" id="resumo" name="resumo" rows="3" onchange="javascript:validar_required(this.id)" onfocusout="javascript:validar_required(this.id)"></textarea>
+        					  	<textarea class="form-control" id="resumo" name="resumo" rows="3" onchange="javascript:validar_required(this.id)" onfocusout="javascript:validar_required(this.id)">{{ detalhes['resumo'] or '' }}</textarea>
         					  	<small id="msg-resumo"></small>
         					</div>
         					<!-- Direcionamento -->
     		  				<div class="form-group mt-3">
     		  			    	<label for="url_mercado_livre">URL do mercado livre</label>
-    		  			    	<input type="url" class="form-control" id="url_mercado_livre" name="url_mercado_livre" placeholder="Link do mercado livre" onchange="javascript:validar_url(this.id)" onfocusout="javascript:validar_url(this.id)">
+    		  			    	<input type="url" class="form-control" id="url_mercado_livre" name="url_mercado_livre" placeholder="Link do mercado livre" value="{{ detalhes['url_mercado_livre'] or '' }}" onchange="javascript:validar_url(this.id)" onfocusout="javascript:validar_url(this.id)">
     		  			    	<small id="msg-url_mercado_livre"></small>
     		  			  	</div>
     		  			  	<div id="validar-url_shopee" class="form-group mt-3">
     		  			    	<label for="url_shopee">URL da Shopee</label>
-    		  			    	<input type="url" class="form-control" id="url_shopee" name="url_shopee" placeholder="Link da Shopee" onchange="javascript:validar_url(this.id)" onfocusout="javascript:validar_url(this.id)">
+    		  			    	<input type="url" class="form-control" id="url_shopee" name="url_shopee" placeholder="Link da Shopee" value="{{ detalhes['url_shopee'] or '' }}" onchange="javascript:validar_url(this.id)" onfocusout="javascript:validar_url(this.id)">
     		  			    	<small id="msg-url_shopee"></small>
     		  			  	</div>
         					<!-- Especificacoes -->
     		  				<div class="form-group mt-3">
     		  			    	<label for="modelo">Modelo</label>
-    		  			    	<input type="text" class="form-control" id="modelo" name="modelo" placeholder="Modelo da peça" onchange="javascript:validar_required(this.id)" onfocusout="javascript:validar_required(this.id)">
+    		  			    	<input type="text" class="form-control" id="modelo" name="modelo" placeholder="Modelo da peça" value="{{ detalhes['modelo'] or '' }}" onchange="javascript:validar_required(this.id)" onfocusout="javascript:validar_required(this.id)">
     		  			    	<small id="msg-modelo"></small>
     		  			  	</div>
     		  			  	<div class="form-group mt-3">
     		  			    	<label for="material">Material</label>
-    		  			    	<input type="text" class="form-control" id="material" name="material" placeholder="Material da peça" onchange="javascript:validar_required(this.id)" onfocusout="javascript:validar_required(this.id)">
+    		  			    	<input type="text" class="form-control" id="material" name="material" placeholder="Material da peça" value="{{ detalhes['material'] or '' }}" onchange="javascript:validar_required(this.id)" onfocusout="javascript:validar_required(this.id)">
     		  			    	<small id="msg-material"></small>
     		  			  	</div>
     		  			  	<div class="form-group mt-3">
     		  			    	<label for="composicao">Composição</label>
-    		  			    	<input type="text" class="form-control" id="composicao" name="composicao" placeholder="Composição da peça" onchange="javascript:validar_required(this.id)" onfocusout="javascript:validar_required(this.id)">
+    		  			    	<input type="text" class="form-control" id="composicao" name="composicao" placeholder="Composição da peça" value="{{ detalhes['composicao'] or '' }}" onchange="javascript:validar_required(this.id)" onfocusout="javascript:validar_required(this.id)">
     		  			    	<small id="msg-composicao"></small>
     		  			  	</div>
         				</div>
@@ -148,8 +152,17 @@
 		</div>
 	</form>
 </div>
-{% block script %} 
-	<script type="text/javascript" src="{{ url_for('static', filename='js/form.min.js') }}"></script>
 {% endblock %}
 
+{% block script %} 
+	<script type="text/javascript" src="{{ url_for('static', filename='js/form.min.js') }}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			id_vestuario = $('.select-vestuario:selected').val()
+			if(id_vestuario != undefined){
+				buscar_categoria(id_vestuario)
+			}
+		})
+	</script>
 {% endblock %}
+

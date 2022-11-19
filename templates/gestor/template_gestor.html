@@ -26,6 +26,10 @@
 				</div>
         	</nav>
         <!-- CONTEUDO -->
+        {% set mensagens = get_flashed_messages() %}
+        {% if mensagens %}
+            <div class="bg-dark text-white">Teste</div>
+        {% endif %}
         {% block conteudo %}{% endblock %}
     </div>
     <script type="text/javascript" src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
