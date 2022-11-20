@@ -1,0 +1,71 @@
+{% extends 'template.html' %}
+{% block link %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/portal.min.css') }}">
+{% endblock %}
+{% block conteudo %}
+    <!-- Carrousel -->
+    <div id="carousel_home" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carousel_home" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carousel_home" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carousel_home" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner carousel-size">
+            <div id="carousel-1" class="carousel-item img-carousel active"></div>
+            <div id="carousel-2" class="carousel-item img-carousel"></div>
+            <div id="carousel-3" class="carousel-item img-carousel"></div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carousel_home" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel_home" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <!-- Filtro -->
+    <div class="pb-2 border-bottom text-center mt-4">
+        <span class="title d-block">CATÁLOGO</span>
+        <small class="muted">Qual peça se encaixa melhor em você?</small>
+    </div>
+    {% include 'portal/catalogo.html' %}
+
+    <!-- Produtos -->
+    <div id="produtos">
+        <div class="pb-2 text-center text-light">
+            <span class="title d-block pt-4">MAIS VENDIDOS</span>
+            <small class="muted">Veja a tendência atual.</small>
+        </div>
+        <div class="container">
+            <div class="row justify-content-around">
+                {% if produtos != None %}
+                    {% for p in produtos %}
+                        {% include 'portal/produto.html' %}
+                    {% endfor %}
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item"><a class="page-link text-dark" href="#">Previous</a></li>
+                            <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link text-dark" href="#">Next</a></li>
+                        </ul>
+                    </nav>
+                {% else %}
+                    <p>Nenhum produto encontrado!</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Coleção -->
+    <div id="colecao" class="container mt-4">
+        <div class="pb-2 text-center text-dark">
+            <span class="title d-block pt-4">COLEÇÃO</span>
+            <small class="muted">Veja nossas coleções.</small>
+        </div>
+        {% include 'portal/colecao.html' %}
+    </div>
+
+{% endblock %}

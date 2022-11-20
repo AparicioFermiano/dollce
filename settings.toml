@@ -1,0 +1,7 @@
+[default]
+DATABASE_URI = ''
+TITLE = 'Dollce'
+SECRET_KEY = 'your secret key'
+
+[production]
+DATABASE_URI = ''

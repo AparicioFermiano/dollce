@@ -1,0 +1,6 @@
+{% for category, message in messages %}
+	<div class="my-1 w-50 mx-auto alert {{ category }} alert-dismissible fade show" role="alert">
+	  <spam>{{ message }}</spam>
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+{% endfor %}

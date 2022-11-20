@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ADM Dollce</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap-icons.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.min.css') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='favicon.ico') }}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="general-container">
+        <div class="top-container">
+        	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        		<div class="container">
+					<ul class="navbar-nav">
+						<li class="nav-item active">
+							<a class="nav-link" href="#">Produtos</a>
+						</li>
+					</ul>
+				</div>
+        	</nav>
+        <!-- CONTEUDO -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% include 'utils/alert.html' %}
+            {% endif %}
+        {% endwith %}
+
+        {% block conteudo %}{% endblock %}
+        </div>
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery/jquery-3.6.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/index.min.js') }}"></script>
+    {% block script %} 
+    {% endblock %}
+</body>
+</html>
