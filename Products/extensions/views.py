@@ -1,6 +1,9 @@
-"""View."""
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from Products.portal.produtos import Produtos
-from flask import render_template, request, flash, redirect, url_for
+from flask import render_template, request, flash
+from flask import redirect, url_for, session
 
 produto = Produtos()
 
@@ -32,16 +35,31 @@ def init_app(app):
             imagem_destaque=imagem_destaque,
             cores=cores, todas_cores=todas_cores)
 
-    @app.route("/dollce/administracao/login")
+    @app.route("/dollce/administracao/home", methods=['GET', 'POST'])
     def adm():
         """."""
-        produtos = produto.buscar_produto()
+        produtos = produto.buscar_produtos()
+
+        if request.method == 'POST':
+            id_detalhe = request.form.get('id_detalhe', None)
+            if id_detalhe:
+                try:
+                    produto.excluir_produto(id_detalhe=id_detalhe)
+                    msg = 'Produto excluído com sucesso.'
+                    alert = 'alert-success'
+                except Exception as err:
+                    msg = 'Erro na exclusão: %s' % err
+                    alert = 'alert-danger'
+                flash(msg, alert)
+                return redirect(url_for('adm'))
+
         return render_template(
             'gestor/gestor_produtos.html', produtos=produtos)
 
     @app.route("/dollce/administracao/produto", methods=['GET', 'POST'])
     def alterar_produto():
         """."""
+        session.pop('_flashes', None)
         lista_cores = produto.listar_cores()
         lista_vestuario = produto.listar_vestuario()
         id_produto = request.args.get('id_produto', None)

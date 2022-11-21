@@ -29,3 +29,25 @@ function buscar_categoria(id_vestuario) {
    	});
 }
 
+function deletar_produto(id_detalhe) {
+	if (confirm('Você deseja realmente apagar esse produto?')) {
+    	$('#id_detalhe').val(id_detalhe)
+    	form = $("#table_produtos").attr("action", "/dollce/administracao/home");
+    	form.submit()
+	}
+}
+
+function ver_imagem(id, div) {
+    if (id.files && id.files[0]) {
+        var file = new FileReader();
+        preview = document.getElementById(div)
+        box = document.getElementById('box-' + div) 
+        box.classList.remove("esconder");
+        file.onload = function(e) {
+            preview.src = e.target.result;
+        };     
+        file.readAsDataURL(id.files[0]);
+    }
+}
+
+

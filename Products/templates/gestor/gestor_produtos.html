@@ -28,44 +28,47 @@
 		</div>
 	</form>
 	<hr>
-	<table class="table table-striped">
-	  	<thead>
-	    	<tr class="text-center">
-	      		<th scope="col">ID</th>
-	      		<th scope="col">Produto</th>
-	     		<th scope="col">Descrição</th>
-	      		<th scope="col">Vestuário</th>
-	      		<th scope="col">Última atualização</th>
-	      		<th scope="col">Comandos</th>
+	<form id="table_produtos" action="" method="POST">
+		<input type="hidden" id="id_detalhe" name="id_detalhe" value="">
+		<table class="table table-striped">
+		  	<thead>
+		    	<tr class="text-center">
+		      		<th scope="col">ID</th>
+		      		<th scope="col">Produto</th>
+		     		<th scope="col">Descrição</th>
+		      		<th scope="col">Vestuário</th>
+		      		<th scope="col">Última atualização</th>
+		      		<th scope="col">Comandos</th>
 
-	    	</tr>
-	  	</thead>
-	  	<tbody>
-	  		{% for p in produtos %}
-		    <tr class="text-center">
-		      	<td scope="row">{{ p.id_produto }}</td>
-		      	<td>{{ p.produto }}</td>
-		      	<td>{{ p.descricao }}</td>
-		      	<td>{{ p.vestuario }}</td>
-		      	{% if p.dt_alteracao %}
-		      		<td>{{ p.dt_alteracao|date() }}</td>
-		      	{% else %}
-		      		<td>{{ p.dt_criacao|date() }}</td>
-		      	{% endif %}
-		      	<td>
-		      		<a class="btn" href="{{ url_for('produto_html', id_produto=p.id_produto) }}">
-		      			<i class="bi bi-eye text-success"></i>
-		      		</a>
-		      		<a class="btn" href="{{ url_for('alterar_produto', id_produto=p.id_produto) }}">
-		      			<i class="bi bi-pencil-square text-primary"></i>
-		      		</a>
-		      		<button class="btn" onclick="">
-		      			<i class="bi bi-x-circle text-danger"></i>
-		      		</button>
-		      	</td>
-		    </tr>
-		    {% endfor %}
-	  	</tbody>
-	</table>
+		    	</tr>
+		  	</thead>
+		  	<tbody>
+		  		{% for p in produtos %}
+			    <tr class="text-center">
+			      	<td scope="row">{{ p.id_produto }}</td>
+			      	<td>{{ p.produto }}</td>
+			      	<td>{{ p.descricao }}</td>
+			      	<td>{{ p.vestuario }}</td>
+			      	{% if p.dt_alteracao %}
+			      		<td>{{ p.dt_alteracao|date() }}</td>
+			      	{% else %}
+			      		<td>{{ p.dt_criacao|date() }}</td>
+			      	{% endif %}
+			      	<td>
+			      		<a class="btn" href="{{ url_for('produto_html', id_produto=p.id_produto) }}">
+			      			<i class="bi bi-eye text-success"></i>
+			      		</a>
+			      		<a class="btn" href="{{ url_for('alterar_produto', id_produto=p.id_produto) }}">
+			      			<i class="bi bi-pencil-square text-primary"></i>
+			      		</a>
+			      		<button class="btn" onclick="javascript: deletar_produto({{p.id_detalhe}})">
+			      			<i class="bi bi-x-circle text-danger"></i>
+			      		</button>
+			      	</td>
+			    </tr>
+			    {% endfor %}
+		  	</tbody>
+		</table>
+	</form>
 </div>
 {% endblock %}

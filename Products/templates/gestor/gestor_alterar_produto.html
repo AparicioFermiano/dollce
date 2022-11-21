@@ -125,24 +125,51 @@
 		  	    	<button class="accordion-button text-center text-dark d-block font-14 semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseImage">Imagens</button>
 		  	  	</h3>
 		  	  	<div id="collapseImage" class="accordion-collapse collapse" data-bs-parent="#form_accordion">
-	  	    		<div class="accordion-body">
-  	    				<div class="form-group">
-  	    				    <input type="file" class="form-control-file" id="imagem_principal"><br>
-  	    				    <small id="imagem_principal_msg" class="form-text text-muted">Imagem principal</small>
-  	    			  	</div>
-  	    			  	<div class="form-group mt-2">
-  	    				    <input type="file" class="form-control-file" id="imagem_principal"><br>
-  	    				    <small id="imagem_secundaria_msg" class="form-text text-muted">Imagem secundária</small>
-  	    			  	</div>
-  	    			  	<div class="form-group mt-2">
-  	    				    <input type="file" class="form-control-file" id="imagem_principal"><br>
-  	    				    <small id="imagem_secundaria_msg" class="form-text text-muted">Imagem adicional</small>
-  	    			  	</div>
-  	    			  	<div class="form-group mt-2">
-  	    				    <input type="file" class="form-control-file" id="imagem_principal"><br>
-  	    				    <small id="imagem_secundaria_msg" class="form-text text-muted">Imagem adicional</small>
-  	    			  	</div>
-					</div>
+	  	    		<div class="row">
+		  	    		<div class="accordion-body col-lg-4 col-md-6 col-sm-12">
+	  	    				<div class="form-group">
+	  	    				    <input type="file" class="form-control-file" id="imagem_principal" onchange="javascript: ver_imagem(this, 'preview1')"><br>
+	  	    				    <small id="imagem_principal_msg" class="form-text text-muted">Imagem principal</small>
+	  	    			  	</div>
+	  	    			  	<div class="form-group mt-2">
+	  	    				    <input type="file" class="form-control-file" id="imagem_secundaria" onchange="javascript: ver_imagem(this, 'preview2')"><br>
+	  	    				    <small id="imagem_secundaria_msg" class="form-text text-muted">Imagem secundária</small>
+	  	    			  	</div>
+	  	    			  	<div class="form-group mt-2">
+	  	    				    <input type="file" class="form-control-file" id="imagem_adicional1" onchange="javascript: ver_imagem(this, 'preview3')"><br>
+	  	    				    <small id="imagem_adicional1_msg" class="form-text text-muted">Imagem adicional</small>
+	  	    			  	</div>
+	  	    			  	<div class="form-group mt-2">
+	  	    				    <input type="file" class="form-control-file" id="imagem_adicional2" onchange="javascript: ver_imagem(this, 'preview4')"><br>
+	  	    				    <small id="imagem_adicional2_msg" class="form-text text-muted">Imagem adicional</small>
+	  	    			  	</div>
+						</div>
+						<div class="col-lg-2 col-md-3 col-sm-6">
+							<div id="box-preview1" class="p-1 esconder">
+								<small>* Imagem principal</small>
+								<img class="border img p-1" src="" id="preview1" alt="">
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-3 col-sm-6">
+							<div id="box-preview2" class="p-1 esconder">
+								<small>* Imagem secundária</small>
+								<img class="border img p-1" id="preview2" alt="">
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-3 col-sm-6">
+							<div id="box-preview3" class="p-1 esconder">
+								<small>* Imagem adicional</small>
+								<img class="border img p-1" id="preview3" alt="">
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-3 col-sm-6">
+							<div id="box-preview4" class="p-1 esconder">
+								<small>* Imagem adicional</small>
+								<img class="border img p-1" id="preview4" alt="">
+							</div>
+						</div>
+	  	    		</div>
+	  	    		
 				</div>
 			</div>
 		</div>

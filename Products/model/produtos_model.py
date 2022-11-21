@@ -14,6 +14,7 @@ class ProdutosModel():
             SELECT
                 p.id_produto,
                 p.produto,
+                p.id_detalhe,
                 pd.descricao,
                 pd.dt_criacao,
                 pd.dt_alteracao,
@@ -217,3 +218,14 @@ class ProdutosModel():
             if int(cor) not in id_cores_old:
                 sql_cores = sql_insert % (int(id_produto), int(cor))
                 manipular(sql_cores, retorno=False)
+
+    def excluir_produto(self, id_detalhe):
+        """Faz a exclusao do produto."""
+        sql_delete = """
+            DELETE FROM
+                produto_detalhes
+            WHERE
+                id_detalhe=%i
+        """ % int(id_detalhe)
+
+        manipular(sql_delete, retorno=False)

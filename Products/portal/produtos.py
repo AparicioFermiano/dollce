@@ -9,7 +9,7 @@ class Produtos():
         """Construtor."""
         self.produtos_model = ProdutosModel()
 
-    def buscar_produto(self):
+    def buscar_produtos(self):
         """Busca os produtos."""
         produtos = self.produtos_model.buscar_produtos()
 
@@ -96,5 +96,8 @@ class Produtos():
             tamanho_m=form.get('tamanho_m', False),
             tamanho_g=form.get('tamanho_g', False),
             cores=cores)
-        # except Exception as err:
-        #     raise Exception("Erro")
+
+    def excluir_produto(self, id_detalhe):
+        """Excluir o produto."""
+        self.produtos_model.excluir_produto(
+            id_detalhe=id_detalhe)
