@@ -49,5 +49,3 @@ function ver_imagem(id, div) {
         file.readAsDataURL(id.files[0]);
     }
 }
-
-

@@ -53,12 +53,23 @@
                 <div class="my-2">
                     <b>Tamanhos disponíveis:</b>
                     <div class="d-flex mt-1">
-                        <input type="image" class="mr-1" width="35" src="{{ url_for('static', filename='image/tamanho-p.svg')}}" alt="P">
-                        <input type="image" class="mr-1" width="35" src="{{ url_for('static', filename='image/tamanho-m.svg')}}" alt="P">
-                        <input type="image" width="35" src="{{ url_for('static', filename='image/tamanho-g.svg')}}" alt="P">
-                        <input type="image" width="35" src="{{ url_for('static', filename='image/sem-tamanho-p.svg')}}" alt="P">
-                        <input type="image" width="35" src="{{ url_for('static', filename='image/sem-tamanho-m.svg')}}" alt="P">
-                        <input type="image" width="35" src="{{ url_for('static', filename='image/sem-tamanho-g.svg')}}" alt="P">
+                        {% if dados['tamanho_p'] %}
+                            <img type="image" class="mr-1" width="35" src="{{ url_for('static', filename='image/tamanho-p.svg')}}" alt="P - disponivel">
+                        {% else %}
+                            <img type="image" class="mr-1" width="35" src="{{ url_for('static', filename='image/sem-tamanho-p.svg')}}" alt="P - indisponivel">
+                        {% endif %}
+
+                        {% if dados['tamanho_m'] %}
+                            <img type="image" class="mr-1" width="35" src="{{ url_for('static', filename='image/tamanho-m.svg')}}" alt="M - disponivel">
+                        {% else %}
+                            <img type="image" class="mr-1" width="35" src="{{ url_for('static', filename='image/sem-tamanho-m.svg')}}" alt="M - indisponivel">
+                        {% endif %}
+
+                        {% if dados['tamanho_g'] %}
+                            <img class="mr-1" width="35" src="{{ url_for('static', filename='image/tamanho-g.svg')}}" alt="G - disponivel">
+                        {% else %}
+                            <img type="image" class="mr-1" width="35" src="{{ url_for('static', filename='image/sem-tamanho-g.svg')}}" alt="G - Indisponivel">
+                        {% endif %}
                     </div>
                 </div>
                 {% if dados['url_shopee'] %}
@@ -81,48 +92,41 @@
                     <div class="icon px-1">
                         <img src="{{ url_for('static', filename='image/wpp.png')}}" class="img">
                     </div>
-                    <div class="px-1">Comprar na Shopee</div>
+                    <div class="px-1">Comprar pelo WhatsApp</div>
                 </a>
                 <hr>
                 <div>
-                    {% if dados['resumo'] %}
-                        <h5>Resumo:</h5>
-                        <p>{{ dados['resumo'] }}</p>
-                    {% else %}
-                        <h5>Especificações:</h5>
-                        <span class="semibold">Tamanhos: </span>P ao G<br>
-                        <span class="semibold">Cores: </span>{{ todas_cores }}<br>
-                        <span class="semibold">Modelo: </span>{{ dados['descricao'] }}<br>
-                        <span class="semibold">Material: </span>{{ dados['material'] }}<br>
-                        <span class="semibold">Composição: </span>{{dados['composicao'] }}<br>
-                        <!-- <span class="semibold">Detalhes adicionais: </span>{{ dados['adicionais'] }}<br>
-                        <span class="semibold">Categoria: </span>{{ dados['categoria'] }}<br> -->
-                    {% endif %}
+                    <h5>Resumo:</h5>
+                    <p>{{ dados['resumo'] }}</p>
                 </div>
-            </div>
-        </div>
-        <hr>
-        <div class="row mt-3">
-            {% if dados['resumo'] %}
-                <div class="col-lg-7 muted border-right">
+                <div>
                     <h5>Especificações:</h5>
                     <span class="semibold">Tamanhos: </span>P ao G<br>
                     <span class="semibold">Cores: </span>{{ todas_cores }}<br>
                     <span class="semibold">Modelo: </span>{{ dados['descricao'] }}<br>
                     <span class="semibold">Material: </span>{{ dados['material'] }}<br>
-                    <span class="semibold">Composição: </span>{{dados['composicao'] }}<br>
-                    <!-- <span class="semibold">Detalhes adicionais: </span>{{ dados['adicionais'] }}<br>
-                    <span class="semibold">Categoria: </span>{{ dados['categoria'] }}<br> -->
+                    <span class="semibold">Composição: </span>{{dados['composicao'] }}<br> 
                 </div>
-                <div class="col-lg-5">
-                   <h5>Recomendados:</h5>
-                </div>
-            {% else %}
-                <div>
-                    <h5>Recomendados:</h5>
-                </div>
-            {% endif %}
-            
+            </div>
         </div>
+        <hr>
+        <h4 class="text-center">Recomendados</h4>
+        <div class="row">
+            {% for rec in recomendados %}
+                <div class="card card-venda col-lg-2 col-md-4 col-sm-6">
+                    <a class="nav-link text-black text-center" href="">
+                        <input type="image" class="card-img-top img" src="{{ url_for('static', filename='image/roupas/corset-brasil.jpg')}}"
+                            id="teste" alt="">
+                            <span class="card-title">{{ rec['produto'] }}</span>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <s class="text-muted mx-1">{{ "R$ %.2f"|format(rec['preco']) }}</s>
+                                <span class="font-14 text-danger">{{ "R$ %.2f"|format(rec['preco_promocao']) }}</span>
+                            </div>
+                            <small class="text-muted">{{ rec['parcelamento'] }}x de {{"R$ %.2f"|format(rec['preco_parcelado']) }}</small>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %} 
+        </div>            
     </div>
 {% endblock %}

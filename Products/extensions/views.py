@@ -25,6 +25,8 @@ def init_app(app):
         if not dados:
             flash('Produto não encontrado!', 'alert-warning')
             return redirect(url_for('index_html'))
+        recomendados = produto.buscar_recomendados(
+            id_produto=dados['id_produto'])
         cores, todas_cores = produto.verificar_cores_produtos(
             id_produto=dados['id_produto'], todas_cores=True)
         imagens, imagem_destaque = produto.buscar_imagens_produto(
@@ -33,7 +35,8 @@ def init_app(app):
             'portal/produto_detalhes.html', dados=dados,
             imagens=imagens,
             imagem_destaque=imagem_destaque,
-            cores=cores, todas_cores=todas_cores)
+            cores=cores, todas_cores=todas_cores,
+            recomendados=recomendados)
 
     @app.route("/dollce/administracao/home", methods=['GET', 'POST'])
     def adm():
