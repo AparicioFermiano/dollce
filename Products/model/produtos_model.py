@@ -44,9 +44,9 @@ class ProdutosModel():
                 pi2.descricao as descricao_secundaria
             FROM vendas v
                 INNER JOIN produtos p ON v.id_produto = p.id_produto
-                INNER JOIN produto_imagens pi ON pi.id_produto = \
+                LEFT JOIN produto_imagens pi ON pi.id_produto = \
                 p.id_produto and pi.destaque = True
-                INNER JOIN produto_imagens pi2 ON pi2.id_produto = \
+                LEFT JOIN produto_imagens pi2 ON pi2.id_produto = \
                 p.id_produto and pi2.secundaria = True
         """
         produto = consultar(sql)
@@ -56,12 +56,31 @@ class ProdutosModel():
         """Busca os detalhes do produto."""
         sql = """
             SELECT
-                *
-            FROM vendas v
-                INNER JOIN produtos p ON v.id_produto = p.id_produto
+                p.id_produto,
+                p.produto,
+                p.id_detalhe,
+                pd.descricao,
+                pd.id_categoria,
+                pd.id_colecao,
+                pd.id_vestuario,
+                pd.url_mercado_livre,
+                pd.url_shopee,
+                pd.composicao,
+                pd.modelo,
+                pd.material,
+                pd.tamanho_p,
+                pd.tamanho_m,
+                pd.tamanho_g,
+                pd.resumo,
+                v.preco,
+                v.preco_promocao,
+                v.parcelamento,
+                v.preco_parcelado
+            FROM produtos p
                 INNER JOIN produto_detalhes pd ON p.id_detalhe = pd.id_detalhe
-            WHERE p.id_produto = %s
-        """ % id_produto
+                LEFT JOIN vendas v ON p.id_produto = v.id_produto
+            WHERE p.id_produto = %i
+        """ % int(id_produto)
         produto = consultar_unit(sql)
         return produto
 
@@ -229,3 +248,20 @@ class ProdutosModel():
         """ % int(id_detalhe)
 
         manipular(sql_delete, retorno=False)
+
+    def buscar_recomendados(
+            self, id_produto, id_categoria, id_colecao, id_vestuario):
+        """."""
+        sql = """
+            SELECT * FROM produtos p
+            INNER JOIN produto_detalhes pd ON p.id_detalhe = pd.id_detalhe
+            LEFT JOIN produto_imagens pi ON p.id_produto = pi.id_produto
+                AND pi.destaque = True
+            WHERE pd.id_vestuario = %i
+            AND p.id_produto != %i
+            AND (pd.id_colecao = %i OR pd.id_categoria = %i)
+            LIMIT 6
+        """ % (int(id_vestuario), int(id_produto), int(id_colecao),
+               int(id_categoria))
+        recomendados = consultar(sql)
+        return recomendados

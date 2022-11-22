@@ -26,7 +26,10 @@ def init_app(app):
             flash('Produto não encontrado!', 'alert-warning')
             return redirect(url_for('index_html'))
         recomendados = produto.buscar_recomendados(
-            id_produto=dados['id_produto'])
+            id_produto=dados['id_produto'],
+            id_vestuario=dados['id_vestuario'],
+            id_colecao=dados['id_colecao'],
+            id_categoria=dados['id_categoria'])
         cores, todas_cores = produto.verificar_cores_produtos(
             id_produto=dados['id_produto'], todas_cores=True)
         imagens, imagem_destaque = produto.buscar_imagens_produto(
@@ -76,7 +79,6 @@ def init_app(app):
             if not detalhes:
                 flash('Produto não localizado', 'alert-danger')
                 return redirect(url_for('adm'))
-
             for cor in produto.verificar_cores_produtos(
                     id_produto=int(id_produto)):
                 cores.append(cor['id_cor'])
@@ -96,7 +98,6 @@ def init_app(app):
                 alert = 'alert-danger'
             flash(msg, alert)
             return redirect(url_for('adm'))
-
         return render_template(
             'gestor/gestor_alterar_produto.html',
             detalhes=detalhes,

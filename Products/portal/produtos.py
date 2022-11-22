@@ -101,3 +101,12 @@ class Produtos():
         """Excluir o produto."""
         self.produtos_model.excluir_produto(
             id_detalhe=id_detalhe)
+
+    def buscar_recomendados(
+            self, id_produto, id_categoria, id_colecao,
+            id_vestuario):
+        """Faz a busca de itens recomendados."""
+        return self.produtos_model.buscar_recomendados(
+            id_produto=id_produto, id_vestuario=id_vestuario,
+            id_colecao=id_colecao, id_categoria=id_categoria
+        )
