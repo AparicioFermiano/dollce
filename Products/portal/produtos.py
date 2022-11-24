@@ -119,7 +119,15 @@ class Produtos():
     def buscar_recomendados(
             self, id_produto, id_categoria, id_vestuario, id_colecao):
         """Faz a busca de itens recomendados."""
-        return self.produtos_model.buscar_recomendados(
+        recomendados = self.produtos_model.buscar_recomendados(
             id_produto=int(id_produto), id_vestuario=int(id_vestuario),
             id_colecao=int(id_colecao), id_categoria=int(id_categoria)
         )
+
+        if recomendados:
+            for r in recomendados:
+                r['preco_parcelado'] = r['preco_promocao'] / r['parcelamento']
+        else:
+            recomendados = []
+
+        return recomendados

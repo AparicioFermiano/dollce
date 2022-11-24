@@ -270,6 +270,7 @@ class ProdutosModel():
         sql = """
             SELECT * FROM produtos p
             INNER JOIN produto_detalhes pd ON p.id_detalhe = pd.id_detalhe
+            INNER JOIN vendas v ON p.id_produto = v.id_produto
             LEFT JOIN produto_imagens pi ON p.id_produto = pi.id_produto
                 AND pi.destaque = True
             WHERE pd.id_vestuario = %i
