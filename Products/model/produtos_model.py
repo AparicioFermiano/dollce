@@ -34,7 +34,6 @@ class ProdutosModel():
                 v.preco,
                 v.preco_promocao,
                 v.parcelamento,
-                v.preco_parcelado,
                 p.id_produto,
                 p.id_detalhe,
                 p.produto,
@@ -74,11 +73,10 @@ class ProdutosModel():
                 pd.resumo,
                 v.preco,
                 v.preco_promocao,
-                v.parcelamento,
-                v.preco_parcelado
+                v.parcelamento
             FROM produtos p
                 INNER JOIN produto_detalhes pd ON p.id_detalhe = pd.id_detalhe
-                LEFT JOIN vendas v ON p.id_produto = v.id_produto
+                INNER JOIN vendas v ON p.id_produto = v.id_produto
             WHERE p.id_produto = %i
         """ % int(id_produto)
         produto = consultar_unit(sql)
@@ -134,17 +132,29 @@ class ProdutosModel():
 
     def manipular_produto(
             self, id_produto, id_detalhe, produto, desc_produto, vestuario,
-            categoria, resumo, url_mercado_livre, url_shopee,
-            modelo, material, composicao, cores, tamanho_p,
-            tamanho_m, tamanho_g):
+            categoria, resumo, url_mercado_livre, url_shopee, modelo,
+            material, composicao, cores, tamanho_p, tamanho_m,
+            tamanho_g, preco, preco_promocao, parcelamento):
         """Faz a manipulacao do produto."""
-        retorno = False
         if id_produto:
             sql_detalhes = """
                 UPDATE produtos SET
                     produto = '%s'
                 WHERE id_produto = %i
             """ % (produto, int(id_produto))
+
+            sql_valor = """
+                UPDATE vendas SET
+                    preco = %(preco)d,
+                    preco_promocao = %(preco_promocao)d,
+                    parcelamento = %(parcelamento)i
+                WHERE
+                    id_produto = %(id_produto)i
+            """ % {
+                "preco": float(preco),
+                "preco_promocao": float(preco_promocao),
+                "parcelamento": int(parcelamento),
+                "id_produto": int(id_produto)}
 
             sql_produto = """
                 UPDATE produto_detalhes SET
@@ -178,13 +188,13 @@ class ProdutosModel():
                 "tamanho_g": tamanho_g,
                 "id_detalhe": int(id_detalhe)}
 
-            id_detalhe = manipular(sql_detalhes, retorno=retorno)
+            manipular(sql_detalhes)
 
             self.manipular_cores(id_produto=id_produto, cores=cores)
+
+            manipular(sql_produto)
         else:
             # Sera feito um insert
-            retorno = True
-
             sql_detalhes = """
                 INSERT INTO produto_detalhes(
                     descricao, id_categoria, dt_criacao,
@@ -199,16 +209,21 @@ class ProdutosModel():
                        url_mercado_livre, url_shopee, resumo, modelo,
                        material, composicao, tamanho_p, tamanho_m, tamanho_g)
 
-            id_detalhe = manipular(sql_detalhes, retorno=retorno)
+            id_detalhe = manipular(sql_detalhes, retorno=True)
 
             sql_produto = """
                 INSERT INTO produtos VALUES(default, '%s', %i, 100)
                 RETURNING(id_produto)
             """ % (produto, id_detalhe)
 
-        id_produto = manipular(sql_produto, retorno=retorno)
+            id_produto = manipular(sql_produto, retorno=True)
 
-        return id_produto
+            sql_valor = """
+                INSERT INTO vendas VALUES(default, '%d', %d, %i, %i)
+            """ % (float(preco), float(preco_promocao), int(parcelamento),
+                   int(id_produto))
+
+        manipular(sql_valor, retorno=False)
 
     def manipular_cores(self, id_produto, cores):
         """Faz a manipulacao das cores de um produto."""
@@ -250,7 +265,7 @@ class ProdutosModel():
         manipular(sql_delete, retorno=False)
 
     def buscar_recomendados(
-            self, id_produto, id_categoria, id_colecao, id_vestuario):
+            self, id_vestuario, id_produto, id_colecao, id_categoria):
         """."""
         sql = """
             SELECT * FROM produtos p
@@ -261,7 +276,6 @@ class ProdutosModel():
             AND p.id_produto != %i
             AND (pd.id_colecao = %i OR pd.id_categoria = %i)
             LIMIT 6
-        """ % (int(id_vestuario), int(id_produto), int(id_colecao),
-               int(id_categoria))
+        """ % (id_vestuario, id_produto, id_colecao, id_categoria)
         recomendados = consultar(sql)
         return recomendados

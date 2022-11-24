@@ -93,11 +93,12 @@ def init_app(app):
                 produto.manipular_produto(form=request.form)
                 msg = 'Cadastro realizado com sucesso.'
                 alert = 'alert-success'
-            except:
-                msg = 'Erro na alteração. Tente novamente!'
+            except Exception as e:
+                msg = 'Erro: %s' % e
                 alert = 'alert-danger'
             flash(msg, alert)
             return redirect(url_for('adm'))
+
         return render_template(
             'gestor/gestor_alterar_produto.html',
             detalhes=detalhes,

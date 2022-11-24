@@ -169,10 +169,31 @@
 							</div>
 						</div>
 	  	    		</div>
-	  	    		
 				</div>
 			</div>
-		</div>
+		  	<div class="accordion-item">
+		  	  	<h3 class="accordion-header">
+		  	    	<button class="accordion-button text-center text-dark d-block font-14 semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrecos">Preços</button>
+		  	  	</h3>
+		  	  	<div id="collapsePrecos" class="accordion-collapse collapse" data-bs-parent="#form_accordion">
+	  	    		<div class="accordion-body row">
+		  	    		<div class="col-lg-6 col-md-6 col-sm-12">
+  	    		  			<div class="form-group my-1">
+  	    		  				<label for="preco">Preço</label>
+  	    				  		<input type="text" class="form-control" id="preco" name="preco" placeholder="Preço da peça" value="{{ detalhes['preco'] or '' }}">
+  	    					</div>
+				  			<div class="form-group my-1">
+				  				<label for="preco_promocional">Preço com desconto</label>
+						  		<input type="text" class="form-control" id="preco_promocao" name="preco_promocao" placeholder="Preço promocional" value="{{ detalhes['preco_promocao'] or '' }}">
+							</div>
+				  			<div class="form-group my-1">
+				  				<label for="parcelamento">Qtd. de parcelamento</label>
+						  		<input type="number" class="form-control" id="parcelamento" name="parcelamento" placeholder="Quantidade de parcelamento" value="{{ detalhes['parcelamento'] or '' }}">
+							</div>
+	  	    			</div>
+	  	    		</div>
+				</div>
+			</div>
 		<div class="text-center mt-3 d-flex justify-content-center">
 			<a type="button" class="btn btn-warning mx-1" href="{{ url_for('adm') }}">Voltar</a>
 			<input type="button" class="btn btn-success mx-1" value="Salvar" onclick="javascript:validar_alterar_produto()">

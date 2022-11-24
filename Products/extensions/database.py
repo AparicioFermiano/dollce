@@ -47,8 +47,8 @@ def consultar(sql):
         dados = cur.fetchall()
     except Exception as err:
         return err
-    dados_dict = [{k: v for k, v in record.items()} for record in dados]
-    return dados_dict
+    data = [dict(row) for row in dados]
+    return data
 
 
 def fechar():

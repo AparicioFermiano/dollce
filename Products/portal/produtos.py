@@ -19,7 +19,10 @@ class Produtos():
         """Busca os detalhes do produto."""
         detalhes = self.produtos_model.buscar_produto_detalhes(
             id_produto=id_produto)
-
+        detalhes['preco_parcelado'] = detalhes[
+            'preco_promocao'] / detalhes['parcelamento']
+        if not detalhes['id_colecao']:
+            detalhes['id_colecao'] = 1
         return detalhes
 
     def verificar_cores_produtos(self, id_produto, todas_cores=False):
@@ -43,7 +46,7 @@ class Produtos():
         """Busca todas imagens relacionada a um produto."""
         imagens = self.produtos_model.buscar_imagens(
             id_produto=id_produto)
-        imagem_destaque = None
+        imagem_destaque = ''
 
         for i in imagens:
             if i['destaque']:
@@ -54,6 +57,14 @@ class Produtos():
     def gerar_card_produto(self):
         """Gera o card do produto."""
         produto = self.produtos_model.buscar_produtos_card()
+        for p in produto:
+            preco_parcelado = float(
+                p['preco_promocao']) / int(p['parcelamento'])
+            p['preco_parcelado'] = round(preco_parcelado, 2)
+            if not p['imagem_principal']:
+                p['imagem_principal'] = 'image/modelo.jfif'
+            if not p['imagem_secundaria']:
+                p['imagem_secundaria'] = 'image/modelo1.jfif'
         return produto
 
     def listar_cores(self):
@@ -79,7 +90,7 @@ class Produtos():
             if 'cor' in item:
                 cores.append(form.get(item))
 
-        self.produtos_model.manipular_produto(
+        return self.produtos_model.manipular_produto(
             id_produto=form.get('id_produto', None),
             id_detalhe=form.get('id_detalhe', None),
             produto=form.get('produto', None),
@@ -95,6 +106,9 @@ class Produtos():
             tamanho_p=form.get('tamanho_p', False),
             tamanho_m=form.get('tamanho_m', False),
             tamanho_g=form.get('tamanho_g', False),
+            preco=form.get('preco', None),
+            preco_promocao=form.get('preco_promocao', None),
+            parcelamento=form.get('parcelamento', None),
             cores=cores)
 
     def excluir_produto(self, id_detalhe):
@@ -103,10 +117,9 @@ class Produtos():
             id_detalhe=id_detalhe)
 
     def buscar_recomendados(
-            self, id_produto, id_categoria, id_colecao,
-            id_vestuario):
+            self, id_produto, id_categoria, id_vestuario, id_colecao):
         """Faz a busca de itens recomendados."""
         return self.produtos_model.buscar_recomendados(
-            id_produto=id_produto, id_vestuario=id_vestuario,
-            id_colecao=id_colecao, id_categoria=id_categoria
+            id_produto=int(id_produto), id_vestuario=int(id_vestuario),
+            id_colecao=int(id_colecao), id_categoria=int(id_categoria)
         )

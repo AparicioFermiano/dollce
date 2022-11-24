@@ -9,7 +9,7 @@
         {% endif %}
     {% endwith %}
     <div class="container mb-5 mt-3">
-        {% include 'utils/breadcrumb.html' %}
+        {# {% include 'utils/breadcrumb.html' %} #}
         <div class="row">
             <div class="col-lg-5 col-md-12 col-sm-12">
                 <!-- Fotos Destaque -->
@@ -109,24 +109,26 @@
                 </div>
             </div>
         </div>
-        <hr>
-        <h4 class="text-center">Recomendados</h4>
-        <div class="row">
-            {% for rec in recomendados %}
-                <div class="card card-venda col-lg-2 col-md-4 col-sm-6">
-                    <a class="nav-link text-black text-center" href="">
-                        <input type="image" class="card-img-top img" src="{{ url_for('static', filename='image/roupas/corset-brasil.jpg')}}"
-                            id="teste" alt="">
-                            <span class="card-title">{{ rec['produto'] }}</span>
-                            <div class="d-flex justify-content-center align-items-center">
-                                <s class="text-muted mx-1">{{ "R$ %.2f"|format(rec['preco']) }}</s>
-                                <span class="font-14 text-danger">{{ "R$ %.2f"|format(rec['preco_promocao']) }}</span>
+        {% if recomendados %}
+            <hr>
+            <h4 class="text-center">Recomendados</h4>
+            <div class="row">
+                {% for rec in recomendados %}
+                    <div class="card card-venda col-lg-2 col-md-4 col-sm-6">
+                        <a class="nav-link text-black text-center" href="">
+                            <input type="image" class="card-img-top img" src="{{ url_for('static', filename='image/roupas/corset-brasil.jpg')}}"
+                                id="teste" alt="">
+                                <span class="card-title">{{ rec['produto'] }}</span>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <s class="text-muted mx-1">{{ "R$ %.2f"|format(rec['preco']) }}</s>
+                                    <span class="font-14 text-danger">{{ "R$ %.2f"|format(rec['preco_promocao']) }}</span>
+                                </div>
+                                <small class="text-muted">{{ rec['parcelamento'] }}x de {{"R$ %.2f"|format(rec['preco_parcelado']) }}</small>
                             </div>
-                            <small class="text-muted">{{ rec['parcelamento'] }}x de {{"R$ %.2f"|format(rec['preco_parcelado']) }}</small>
-                        </div>
-                    </a>
-                </div>
-            {% endfor %} 
-        </div>            
+                        </a>
+                    </div>
+                {% endfor %} 
+            </div> 
+        {% endif %}           
     </div>
 {% endblock %}
