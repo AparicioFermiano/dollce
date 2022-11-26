@@ -1,1 +1,1 @@
-web: gunicorn .env
+web: gunicorn Products/app.py
