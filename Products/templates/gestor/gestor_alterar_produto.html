@@ -128,44 +128,44 @@
 	  	    		<div class="row">
 		  	    		<div class="accordion-body col-lg-4 col-md-6 col-sm-12">
 	  	    				<div class="form-group">
-	  	    				    <input type="file" class="form-control-file" id="imagem_principal" onchange="javascript: ver_imagem(this, 'preview1')"><br>
+	  	    				    <input type="file" class="form-control-file" id="imagem_principal" name="imagem_principal" onchange="javascript: ver_imagem(this, 'preview1')"><br>
 	  	    				    <small id="imagem_principal_msg" class="form-text text-muted">Imagem principal</small>
 	  	    			  	</div>
 	  	    			  	<div class="form-group mt-2">
-	  	    				    <input type="file" class="form-control-file" id="imagem_secundaria" onchange="javascript: ver_imagem(this, 'preview2')"><br>
+	  	    				    <input type="file" class="form-control-file" id="imagem_secundaria" name="imagem_secundaria" onchange="javascript: ver_imagem(this, 'preview2')"><br>
 	  	    				    <small id="imagem_secundaria_msg" class="form-text text-muted">Imagem secundária</small>
 	  	    			  	</div>
 	  	    			  	<div class="form-group mt-2">
-	  	    				    <input type="file" class="form-control-file" id="imagem_adicional1" onchange="javascript: ver_imagem(this, 'preview3')"><br>
+	  	    				    <input type="file" class="form-control-file" id="imagem_adicional1" name="imagem_adicional1" onchange="javascript: ver_imagem(this, 'preview3')"><br>
 	  	    				    <small id="imagem_adicional1_msg" class="form-text text-muted">Imagem adicional</small>
 	  	    			  	</div>
 	  	    			  	<div class="form-group mt-2">
-	  	    				    <input type="file" class="form-control-file" id="imagem_adicional2" onchange="javascript: ver_imagem(this, 'preview4')"><br>
+	  	    				    <input type="file" class="form-control-file" id="imagem_adicional2" name="imagem_adicional2" onchange="javascript: ver_imagem(this, 'preview4')"><br>
 	  	    				    <small id="imagem_adicional2_msg" class="form-text text-muted">Imagem adicional</small>
 	  	    			  	</div>
 						</div>
 						<div class="col-lg-2 col-md-3 col-sm-6">
-							<div id="box-preview1" class="p-1 esconder">
+							<div id="box-preview1" class="p-1">
 								<small>* Imagem principal</small>
-								<img class="border img p-1" src="" id="preview1" alt="">
+								<img class="border img p-1" src="{{ url_for('static', filename=imagens['imagem_destaque'])}}" id="preview1" alt="">
 							</div>
 						</div>
 						<div class="col-lg-2 col-md-3 col-sm-6">
-							<div id="box-preview2" class="p-1 esconder">
+							<div id="box-preview2" class="p-1">
 								<small>* Imagem secundária</small>
-								<img class="border img p-1" id="preview2" alt="">
+								<img class="border img p-1" src="{{ url_for('static', filename=imagens['imagem_secundaria'])}}" id="preview2" alt="">
 							</div>
 						</div>
 						<div class="col-lg-2 col-md-3 col-sm-6">
-							<div id="box-preview3" class="p-1 esconder">
+							<div id="box-preview3" class="p-1">
 								<small>* Imagem adicional</small>
-								<img class="border img p-1" id="preview3" alt="">
+								<img class="border img p-1" src="{{ url_for('static', filename=imagens['imagem_adicional1'])}}" id="preview3" alt="">
 							</div>
 						</div>
 						<div class="col-lg-2 col-md-3 col-sm-6">
-							<div id="box-preview4" class="p-1 esconder">
+							<div id="box-preview4" class="p-1">
 								<small>* Imagem adicional</small>
-								<img class="border img p-1" id="preview4" alt="">
+								<img class="border img p-1" src="{{ url_for('static', filename=imagens['imagem_adicional2'])}}" id="preview4" alt="">
 							</div>
 						</div>
 	  	    		</div>

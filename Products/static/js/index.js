@@ -41,8 +41,6 @@ function ver_imagem(id, div) {
     if (id.files && id.files[0]) {
         var file = new FileReader();
         preview = document.getElementById(div)
-        box = document.getElementById('box-' + div) 
-        box.classList.remove("esconder");
         file.onload = function(e) {
             preview.src = e.target.result;
         };     

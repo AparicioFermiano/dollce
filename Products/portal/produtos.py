@@ -44,15 +44,20 @@ class Produtos():
 
     def buscar_imagens_produto(self, id_produto=None):
         """Busca todas imagens relacionada a um produto."""
-        imagens = self.produtos_model.buscar_imagens(
-            id_produto=id_produto)
-        imagem_destaque = ''
+        imagem = {}
 
-        for i in imagens:
-            if i['destaque']:
-                imagem_destaque = i
+        for i in self.produtos_model.buscar_imagens(
+                id_produto=id_produto):
+            if i['ordem'] == 1:
+                imagem['imagem_destaque'] = i['url_imagem']
+            elif i['ordem'] == 2:
+                imagem['imagem_secundaria'] = i['url_imagem']
+            elif i['ordem'] == 3:
+                imagem['imagem_adicional1'] = i['url_imagem']
+            else:
+                imagem['imagem_adicional2'] = i['url_imagem']
 
-        return imagens, imagem_destaque
+        return imagem
 
     def gerar_card_produto(self):
         """Gera o card do produto."""
@@ -90,8 +95,17 @@ class Produtos():
             if 'cor' in item:
                 cores.append(form.get(item))
 
+        id_produto = form.get('id_produto', None)
+
+        self.produtos_model.manipular_imagem(
+            id_produto=id_produto,
+            imagem_principal=form.get('imagem_principal', None),
+            imagem_secundaria=form.get('imagem_secundaria', None),
+            imagem_adicional1=form.get('imagem_adicional1', None),
+            imagem_adicional2=form.get('imagem_adicional2', None))
+
         return self.produtos_model.manipular_produto(
-            id_produto=form.get('id_produto', None),
+            id_produto=id_produto,
             id_detalhe=form.get('id_detalhe', None),
             produto=form.get('produto', None),
             desc_produto=form.get('desc_produto', None),
@@ -110,6 +124,8 @@ class Produtos():
             preco_promocao=form.get('preco_promocao', None),
             parcelamento=form.get('parcelamento', None),
             cores=cores)
+
+    # def manipular_imagem(self, form=None)
 
     def excluir_produto(self, id_detalhe):
         """Excluir o produto."""

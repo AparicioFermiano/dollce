@@ -101,9 +101,11 @@ class ProdutosModel():
         """Busca as imagens relacionada ao produto."""
         sql = """
             SELECT
-                id_imagem, url_imagem, destaque, descricao
+                id_imagem,
+                url_imagem,
+                ordem
             FROM produto_imagens WHERE id_produto = %s
-            ORDER BY destaque DESC
+            ORDER BY ordem DESC
         """ % id_produto
         imagens = consultar(sql)
         return imagens
@@ -129,6 +131,42 @@ class ProdutosModel():
         sql = "SELECT * FROM vestuario"
         vestuario = consultar(sql)
         return vestuario
+
+    def manipular_imagem(
+            self, id_produto, imagem_principal, imagem_secundaria,
+            imagem_adicional1, imagem_adicional2):
+        """Faz a manipulacao das imagens."""
+        if id_produto:
+            sql_imagem = """
+                UPDATE
+                    produto_imagens
+                SET
+                    url_imagem = '%s'
+                WHERE
+                    id_produto = %i AND
+                    ordem = %i
+            """
+
+            if imagem_principal:
+                manipular(sql_imagem % (imagem_principal, int(id_produto), 1))
+            if imagem_secundaria:
+                manipular(sql_imagem % (imagem_secundaria, int(id_produto), 2))
+            if imagem_adicional1:
+                manipular(sql_imagem % (imagem_adicional1, int(id_produto), 3))
+            if imagem_adicional2:
+                manipular(sql_imagem % (imagem_adicional2, int(id_produto), 4))
+        else:
+            sql_imagem = """
+                INSERT INTO produto_imagens(
+                    id_produto, url_imagem, dt_criacao, ordem)
+                VALUES(
+                    %i, '%s', CURRENT_DATE, %i)
+            """
+
+            manipular(sql_imagem % (int(id_produto), imagem_principal, 1))
+            manipular(sql_imagem % (int(id_produto), imagem_secundaria, 2))
+            manipular(sql_imagem % (int(id_produto), imagem_adicional1, 3))
+            manipular(sql_imagem % (int(id_produto), imagem_adicional2, 4))
 
     def manipular_produto(
             self, id_produto, id_detalhe, produto, desc_produto, vestuario,

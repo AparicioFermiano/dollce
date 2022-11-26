@@ -32,13 +32,11 @@ def init_app(app):
             id_categoria=dados['id_categoria'])
         cores, todas_cores = produto.verificar_cores_produtos(
             id_produto=dados['id_produto'], todas_cores=True)
-        imagens, imagem_destaque = produto.buscar_imagens_produto(
+        imagens = produto.buscar_imagens_produto(
             id_produto=id_produto)
         return render_template(
             'portal/produto_detalhes.html', dados=dados,
-            imagens=imagens,
-            imagem_destaque=imagem_destaque,
-            cores=cores, todas_cores=todas_cores,
+            imagens=imagens, cores=cores, todas_cores=todas_cores,
             recomendados=recomendados)
 
     @app.route("/dollce/administracao/home", methods=['GET', 'POST'])
@@ -82,7 +80,8 @@ def init_app(app):
             for cor in produto.verificar_cores_produtos(
                     id_produto=int(id_produto)):
                 cores.append(cor['id_cor'])
-
+            imagens = produto.buscar_imagens_produto(
+                id_produto=int(id_produto))
         if id_vestuario:
             lista_categoria = produto.listar_categorias(
                 id_vestuario=id_vestuario)
@@ -98,13 +97,12 @@ def init_app(app):
                 alert = 'alert-danger'
             flash(msg, alert)
             return redirect(url_for('adm'))
-
         return render_template(
             'gestor/gestor_alterar_produto.html',
             detalhes=detalhes,
             lista_cores=lista_cores,
             lista_vestuario=lista_vestuario,
-            cores=cores)
+            cores=cores, imagens=imagens)
 
     @app.route("/teste", methods=['GET', 'POST'])
     def teste():
